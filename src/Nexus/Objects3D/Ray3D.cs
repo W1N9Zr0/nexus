@@ -11,7 +11,7 @@ namespace Nexus.Objects3D
 			Direction = direction;
 		}
 
-		public Point3D Evaluate(float t)
+		public Point3D Evaluate(double t)
 		{
 			return Origin + Direction * t;
 		}
@@ -21,7 +21,7 @@ namespace Nexus.Objects3D
 			return string.Format("{{Origin:{0} Direction:{1}}}", Origin, Direction);
 		}
 
-		public float? Intersects(AxisAlignedBox3D box)
+		public double? Intersects(AxisAlignedBox3D box)
 		{
 			//first test if start in box
 			if (Origin.X >= box.Min.X
@@ -30,32 +30,32 @@ namespace Nexus.Objects3D
 				&& Origin.Y <= box.Max.Y
 				&& Origin.Z >= box.Min.Z
 				&& Origin.Z <= box.Max.Z)
-				return 0.0f;// here we concidere cube is full and origine is in cube so intersect at origine
+				return 0.0;// here we concidere cube is full and origine is in cube so intersect at origine
 
 			//Second we check each face
-			Vector3D maxT = new Vector3D(-1.0f);
-			//Vector3 minT = new Vector3(-1.0f);
+			Vector3D maxT = new Vector3D(-1.0);
+			//Vector3 minT = new Vector3(-1.0);
 			//calcul intersection with each faces
-			if (Origin.X < box.Min.X && Direction.X != 0.0f)
+			if (Origin.X < box.Min.X && Direction.X != 0.0)
 				maxT.X = (box.Min.X - Origin.X) / Direction.X;
-			else if (Origin.X > box.Max.X && Direction.X != 0.0f)
+			else if (Origin.X > box.Max.X && Direction.X != 0.0)
 				maxT.X = (box.Max.X - Origin.X) / Direction.X;
-			if (Origin.Y < box.Min.Y && Direction.Y != 0.0f)
+			if (Origin.Y < box.Min.Y && Direction.Y != 0.0)
 				maxT.Y = (box.Min.Y - Origin.Y) / Direction.Y;
-			else if (Origin.Y > box.Max.Y && Direction.Y != 0.0f)
+			else if (Origin.Y > box.Max.Y && Direction.Y != 0.0)
 				maxT.Y = (box.Max.Y - Origin.Y) / Direction.Y;
-			if (Origin.Z < box.Min.Z && Direction.Z != 0.0f)
+			if (Origin.Z < box.Min.Z && Direction.Z != 0.0)
 				maxT.Z = (box.Min.Z - Origin.Z) / Direction.Z;
-			else if (Origin.Z > box.Max.Z && Direction.Z != 0.0f)
+			else if (Origin.Z > box.Max.Z && Direction.Z != 0.0)
 				maxT.Z = (box.Max.Z - Origin.Z) / Direction.Z;
 
 			//get the maximum maxT
 			if (maxT.X > maxT.Y && maxT.X > maxT.Z)
 			{
-				if (maxT.X < 0.0f)
+				if (maxT.X < 0.0)
 					return null;// ray go on opposite of face
 				//coordonate of hit point of face of cube
-				float coord = Origin.Z + maxT.X * Direction.Z;
+				double coord = Origin.Z + maxT.X * Direction.Z;
 				// if hit point coord ( intersect face with ray) is out of other plane coord it miss 
 				if (coord < box.Min.Z || coord > box.Max.Z)
 					return null;
@@ -66,10 +66,10 @@ namespace Nexus.Objects3D
 			}
 			if (maxT.Y > maxT.X && maxT.Y > maxT.Z)
 			{
-				if (maxT.Y < 0.0f)
+				if (maxT.Y < 0.0)
 					return null;// ray go on opposite of face
 				//coordonate of hit point of face of cube
-				float coord = Origin.Z + maxT.Y * Direction.Z;
+				double coord = Origin.Z + maxT.Y * Direction.Z;
 				// if hit point coord ( intersect face with ray) is out of other plane coord it miss 
 				if (coord < box.Min.Z || coord > box.Max.Z)
 					return null;
@@ -80,10 +80,10 @@ namespace Nexus.Objects3D
 			}
 			else //Z
 			{
-				if (maxT.Z < 0.0f)
+				if (maxT.Z < 0.0)
 					return null;// ray go on opposite of face
 				//coordonate of hit point of face of cube
-				float coord = Origin.X + maxT.Z * Direction.X;
+				double coord = Origin.X + maxT.Z * Direction.X;
 				// if hit point coord ( intersect face with ray) is out of other plane coord it miss 
 				if (coord < box.Min.X || coord > box.Max.X)
 					return null;

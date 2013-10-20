@@ -10,10 +10,10 @@
 		{
 		}
 
-		public override float[] Solve(float[] initial, float x, float h)
+		public override double[] Solve(double[] initial, double x, double h)
 		{
 			// final = initial + derived * h
-			float[] derivs = Callback(initial, x);
+			double[] derivs = Callback(initial, x);
 			return DoEulerStep(initial, derivs, h);
 		}
 	}

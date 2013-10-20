@@ -7,11 +7,11 @@ namespace Nexus
 	[StructLayout(LayoutKind.Sequential)]
 	public struct Normal3D
 	{
-		public float X, Y, Z;
+		public double X, Y, Z;
 
 		#region Constructors
 
-		public Normal3D(float x, float y, float z)
+		public Normal3D(double x, double y, double z)
 		{
 			this.X = x;
 			this.Y = y;
@@ -28,21 +28,21 @@ namespace Nexus
 			return string.Format(provider, "{1:" + format + "}{0}{2:" + format + "}{0}{3:" + format + "}", new object[] { numericListSeparator, this.X, this.Y, this.Z });
 		}
 
-		public float Length()
+		public double Length()
 		{
-			float lengthSq = ((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z);
-			return (float)System.Math.Sqrt(lengthSq);
+			double lengthSq = ((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z);
+			return (double)System.Math.Sqrt(lengthSq);
 		}
 
-		public float LengthSquared()
+		public double LengthSquared()
 		{
 			return (((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z));
 		}
 
 		public void Normalize()
 		{
-			float lengthSq = ((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z);
-			float lengthInv = 1f / ((float)System.Math.Sqrt(lengthSq));
+			double lengthSq = ((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z);
+			double lengthInv = 1 / ((double)System.Math.Sqrt(lengthSq));
 			this.X *= lengthInv;
 			this.Y *= lengthInv;
 			this.Z *= lengthInv;
@@ -57,12 +57,12 @@ namespace Nexus
 
 		#region Static methods
 
-		public static float Dot(Normal3D n1, Normal3D n2)
+		public static double Dot(Normal3D n1, Normal3D n2)
 		{
 			return (n1.X * n2.X) + (n1.Y * n2.Y) + (n1.Z * n2.Z);
 		}
 
-		public static float AbsDot(Normal3D n1, Normal3D n2)
+		public static double AbsDot(Normal3D n1, Normal3D n2)
 		{
 			return System.Math.Abs(Dot(n1, n2));
 		}
@@ -97,7 +97,7 @@ namespace Nexus
 			return new Normal3D(-value.X, -value.Y, -value.Z);
 		}
 
-		public static Normal3D operator *(Normal3D value, float scaleFactor)
+		public static Normal3D operator *(Normal3D value, double scaleFactor)
 		{
 			Normal3D vector;
 			vector.X = value.X * scaleFactor;
@@ -106,7 +106,7 @@ namespace Nexus
 			return vector;
 		}
 
-		public static Normal3D operator *(float scaleFactor, Normal3D value)
+		public static Normal3D operator *(double scaleFactor, Normal3D value)
 		{
 			Normal3D vector;
 			vector.X = value.X * scaleFactor;
@@ -115,10 +115,10 @@ namespace Nexus
 			return vector;
 		}
 
-		public static Normal3D operator /(Normal3D value, float divider)
+		public static Normal3D operator /(Normal3D value, double divider)
 		{
 			Normal3D vector;
-			float num = 1f / divider;
+			double num = 1 / divider;
 			vector.X = value.X * num;
 			vector.Y = value.Y * num;
 			vector.Z = value.Z * num;

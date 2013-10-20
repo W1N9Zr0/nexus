@@ -49,7 +49,7 @@ namespace Nexus.Design
 		{
 			if (destinationType == typeof(InstanceDescriptor))
 			{
-				ConstructorInfo ci = typeof(Color).GetConstructor(new[] { typeof(float), typeof(float), typeof(float) });
+				ConstructorInfo ci = typeof(Color).GetConstructor(new[] { typeof(double), typeof(double), typeof(double) });
 				Color colour = (Color) value;
 				return new InstanceDescriptor(ci, new object[] { colour.R, colour.G, colour.B });
 			}

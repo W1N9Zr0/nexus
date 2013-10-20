@@ -17,7 +17,7 @@ namespace Nexus.Tests
 		[Test]
 		public void CanCreateFieldOfViewPerspectiveMatrix()
 		{
-			const float fieldOfView = MathUtility.PI_OVER_2;
+			const float fieldOfView = (float)MathUtility.PI_OVER_2;
 			Matrix3D projectionMatrix = Matrix3D.CreatePerspectiveFieldOfView(fieldOfView, 1, 1, 200);
 
 			Matrix otherProjectionMatrix = Matrix.PerspectiveFovRH(fieldOfView, 1, 1, 200);
@@ -27,7 +27,7 @@ namespace Nexus.Tests
 		[Test]
 		public void CanTransformPointWithPerspectiveProjection()
 		{
-			const float fieldOfView = MathUtility.PI_OVER_2;
+			const float fieldOfView = (float)MathUtility.PI_OVER_2;
 			Matrix3D actualProjectionMatrix = Matrix3D.CreatePerspectiveFieldOfView(fieldOfView, 1, 1, 200);
 			Matrix expectedProjectionMatrix = Matrix.PerspectiveFovRH(fieldOfView, 1, 1, 200);
 			Point4D actualPoint = new Point4D(100, 100, -100, 1);

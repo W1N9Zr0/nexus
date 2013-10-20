@@ -9,11 +9,11 @@ namespace Nexus
 	[StructLayout(LayoutKind.Sequential)]
 	public struct Vector4D
 	{
-		public float X, Y, Z, W;
+		public double X, Y, Z, W;
 
 		#region Constructors
 
-		public Vector4D(float x, float y, float z, float w)
+		public Vector4D(double x, double y, double z, double w)
 		{
 			X = x;
 			Y = y;
@@ -25,7 +25,7 @@ namespace Nexus
 
 		#region Indexer
 
-		public float this[int index]
+		public double this[int index]
 		{
 			get
 			{
@@ -71,7 +71,7 @@ namespace Nexus
 
 		public static int SizeInBytes
 		{
-			get { return sizeof(float) * 4; }
+			get { return sizeof(double) * 4; }
 		}
 
 		#endregion
@@ -103,7 +103,7 @@ namespace Nexus
 			return vector;
 		}
 
-		public static Vector4D operator *(Vector4D value, float scaleFactor)
+		public static Vector4D operator *(Vector4D value, double scaleFactor)
 		{
 			Vector4D vector;
 			vector.X = value.X * scaleFactor;

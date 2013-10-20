@@ -7,7 +7,7 @@ namespace Nexus.Objects3D
 		public Point3D C;
 
 		private readonly Vector3D _v0, _v1;
-		private readonly float _d00, _d01, _d11, _denom;
+		private readonly double _d00, _d01, _d11, _denom;
 
 		public Triangle3D(Point3D a, Point3D b, Point3D c)
 		{
@@ -34,17 +34,17 @@ namespace Nexus.Objects3D
 		public Vector3D Barycentric(Point3D p)
 		{
 			Vector3D v2 = p - A;
-			float d20 = Vector3D.Dot(v2, _v0);
-			float d21 = Vector3D.Dot(v2, _v1);
+			double d20 = Vector3D.Dot(v2, _v0);
+			double d21 = Vector3D.Dot(v2, _v1);
 
 			Vector3D result;
 			result.Y = (_d11 * d20 - _d01 * d21) / _denom;
 			result.Z = (_d00 * d21 - _d01 * d20) / _denom;
-			result.X = 1.0f - result.Y - result.Z;
+			result.X = 1.0 - result.Y - result.Z;
 			return result;
 		}
 
-		public static float Area2D(float x1, float y1, float x2, float y2, float x3, float y3)
+		public static double Area2D(double x1, double y1, double x2, double y2, double x3, double y3)
 		{
 			return (x1 - x2) * (y2 - y3) - (x2 - x3) * (y1 - y2);
 		}

@@ -68,9 +68,9 @@ namespace Nexus.Graphics.Transforms
 
 		public Normal3D Transform(Normal3D normal)
 		{
-			float x = normal.X;
-			float y = normal.Y;
-			float z = normal.Z;
+			double x = normal.X;
+			double y = normal.Y;
+			double z = normal.Z;
 
 			Matrix3D inverse = Inverse.Value;
 

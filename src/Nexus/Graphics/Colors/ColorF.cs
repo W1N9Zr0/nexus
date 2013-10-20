@@ -7,32 +7,32 @@ namespace Nexus.Graphics.Colors
 	{
 		#region Fields
 
-		public float A;
-		public float B;
-		public float G;
-		public float R;
+		public double A;
+		public double B;
+		public double G;
+		public double R;
 
 		#endregion
 
 		#region Constructor
 
-		public ColorF(float value)
+		public ColorF(double value)
 		{
-			A = 1.0f;
+			A = 1.0;
 			R = value;
 			G = value;
 			B = value;
 		}
 
-		public ColorF(float r, float g, float b)
+		public ColorF(double r, double g, double b)
 		{
-			A = 1.0f;
+			A = 1.0;
 			R = r;
 			G = g;
 			B = b;
 		}
 
-		public ColorF(float a, float r, float g, float b)
+		public ColorF(double a, double r, double g, double b)
 		{
 			A = a;
 			R = r;
@@ -40,7 +40,7 @@ namespace Nexus.Graphics.Colors
 			B = b;
 		}
 
-		public ColorF(ColorRgbF rgb, float a)
+		public ColorF(ColorRgbF rgb, double a)
 		{
 			A = a;
 			R = rgb.R;
@@ -52,12 +52,12 @@ namespace Nexus.Graphics.Colors
 
 		#region Methods
 
-		public float Min()
+		public double Min()
 		{
 			return System.Math.Min(System.Math.Min(R, G), B);
 		}
 
-		public float Max()
+		public double Max()
 		{
 			return System.Math.Max(System.Math.Max(R, G), B);
 		}
@@ -81,9 +81,9 @@ namespace Nexus.Graphics.Colors
 		public static ColorF Exp(ColorF value)
 		{
 			return new ColorF(
-				(float) System.Math.Exp(value.R),
-				(float) System.Math.Exp(value.G),
-				(float) System.Math.Exp(value.B));
+				(double) System.Math.Exp(value.R),
+				(double) System.Math.Exp(value.G),
+				(double) System.Math.Exp(value.B));
 		}
 
 		public static ColorF Saturate(ColorF value)
@@ -106,10 +106,10 @@ namespace Nexus.Graphics.Colors
 		public static ColorF FromRgbColor(Color value)
 		{
 			return new ColorF(
-				value.A / 255.0f,
-				value.R / 255.0f,
-				value.G / 255.0f,
-				value.B / 255.0f);
+				value.A / 255.0,
+				value.R / 255.0,
+				value.G / 255.0,
+				value.B / 255.0);
 		}
 
 		public static ColorF FromHexRef(string hexRef)
@@ -121,7 +121,7 @@ namespace Nexus.Graphics.Colors
 
 		#region Operators
 
-		public static ColorF operator *(ColorF value, float multiplier)
+		public static ColorF operator *(ColorF value, double multiplier)
 		{
 			return new ColorF(
 				value.A * multiplier,
@@ -130,7 +130,7 @@ namespace Nexus.Graphics.Colors
 				value.B * multiplier);
 		}
 
-		public static ColorF operator -(ColorF value, float valueToSubtract)
+		public static ColorF operator -(ColorF value, double valueToSubtract)
 		{
 			return new ColorF(
 				value.R - valueToSubtract,
@@ -138,7 +138,7 @@ namespace Nexus.Graphics.Colors
 				value.B - valueToSubtract);
 		}
 
-		public static ColorF operator +(ColorF value, float valueToAdd)
+		public static ColorF operator +(ColorF value, double valueToAdd)
 		{
 			return new ColorF(
 				value.R + valueToAdd,
@@ -146,7 +146,7 @@ namespace Nexus.Graphics.Colors
 				value.B + valueToAdd);
 		}
 
-		public static ColorF operator /(ColorF value, float divider)
+		public static ColorF operator /(ColorF value, double divider)
 		{
 			return new ColorF(
 				value.R / divider,
@@ -183,10 +183,10 @@ namespace Nexus.Graphics.Colors
 		public static explicit operator Color(ColorF value)
 		{
 			return new Color(
-				(byte)(MathUtility.Saturate(value.A) * 255.0f),
-				(byte)(MathUtility.Saturate(value.R) * 255.0f),
-				(byte)(MathUtility.Saturate(value.G) * 255.0f),
-				(byte)(MathUtility.Saturate(value.B) * 255.0f));
+				(byte)(MathUtility.Saturate(value.A) * 255.0),
+				(byte)(MathUtility.Saturate(value.R) * 255.0),
+				(byte)(MathUtility.Saturate(value.G) * 255.0),
+				(byte)(MathUtility.Saturate(value.B) * 255.0));
 		}
 
 		public static explicit operator Vector3D(ColorF value)
@@ -201,25 +201,25 @@ namespace Nexus.Graphics.Colors
 			get { return new ColorRgbF(R, G, B); }
 		}
 
-		public float Red
+		public double Red
 		{
 			get { return R; }
 			set { R = value; }
 		}
 
-		public float Green
+		public double Green
 		{
 			get { return G; }
 			set { G = value; }
 		}
 
-		public float Blue
+		public double Blue
 		{
 			get { return B; }
 			set { B = value; }
 		}
 
-		public float Alpha
+		public double Alpha
 		{
 			get { return A; }
 			set { A = value; }

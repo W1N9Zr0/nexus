@@ -8,7 +8,7 @@
 	/// the derivatives of</param>
 	/// <param name="x">Value to derive with respect to (usually time)</param>
 	/// <returns>Array of the derivatives of the values of y</returns>
-	public delegate float[] CalculateDerivatives(float[] y, float x);
+	public delegate double[] CalculateDerivatives(double[] y, double x);
 
 	/// <summary>
 	/// This class implements functions that solve first-order
@@ -34,7 +34,7 @@
 		/// <param name="x">Initial value of x (usually time)</param>
 		/// <param name="h">Increment value for x (usually delta time)</param>
 		/// <returns></returns>
-		public abstract float[] Solve(float[] initial, float x, float h);
+		public abstract double[] Solve(double[] initial, double x, double h);
 
 		/// <summary>
 		/// Processes a simple Euler step
@@ -43,10 +43,10 @@
 		/// <param name="derivs"></param>
 		/// <param name="h"></param>
 		/// <returns></returns>
-		protected static float[] DoEulerStep(float[] initial, float[] derivs, float h)
+		protected static double[] DoEulerStep(double[] initial, double[] derivs, double h)
 		{
 			int len = initial.Length;
-			float[] ret = new float[len];
+			double[] ret = new double[len];
 			for (int i = 0; i < len; i++)
 				ret[i] = initial[i] + derivs[i] * h;
 			return ret;

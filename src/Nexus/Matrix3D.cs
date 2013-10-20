@@ -16,22 +16,22 @@ namespace Nexus
 	{
 		private readonly static Matrix3D _identity;
 
-		public float M11;
-		public float M12;
-		public float M13;
-		public float M14;
-		public float M21;
-		public float M22;
-		public float M23;
-		public float M24;
-		public float M31;
-		public float M32;
-		public float M33;
-		public float M34;
-		public float M41;
-		public float M42;
-		public float M43;
-		public float M44;
+		public double M11;
+		public double M12;
+		public double M13;
+		public double M14;
+		public double M21;
+		public double M22;
+		public double M23;
+		public double M24;
+		public double M31;
+		public double M32;
+		public double M33;
+		public double M34;
+		public double M41;
+		public double M42;
+		public double M43;
+		public double M44;
 
 		#region Constructors
 
@@ -41,10 +41,10 @@ namespace Nexus
 		}
 
 		public Matrix3D(
-			float m11, float m12, float m13, float m14,
-			float m21, float m22, float m23, float m24,
-			float m31, float m32, float m33, float m34,
-			float m41, float m42, float m43, float m44)
+			double m11, double m12, double m13, double m14,
+			double m21, double m22, double m23, double m24,
+			double m31, double m32, double m33, double m34,
+			double m41, double m42, double m43, double m44)
 		{
 			M11 = m11;
 			M12 = m12;
@@ -77,10 +77,10 @@ namespace Nexus
 		{
 			get
 			{
-				return M11 == 1.0f && M12 == 0.0f && M13 == 0.0f && M14 == 0.0f
-				       && M21 == 0.0f && M22 == 1.0f && M23 == 0.0f && M24 == 0.0f
-				       && M31 == 0.0f && M32 == 0.0f && M33 == 1.0f && M34 == 0.0f
-				       && M41 == 0.0f && M42 == 0.0f && M43 == 0.0f && M44 == 1.0f;
+				return M11 == 1.0 && M12 == 0.0 && M13 == 0.0 && M14 == 0.0
+				       && M21 == 0.0 && M22 == 1.0 && M23 == 0.0 && M24 == 0.0
+				       && M31 == 0.0 && M32 == 0.0 && M33 == 1.0 && M34 == 0.0
+				       && M41 == 0.0 && M42 == 0.0 && M43 == 0.0 && M44 == 1.0;
 			}
 		}
 
@@ -95,7 +95,7 @@ namespace Nexus
 		/// </remarks>
 		public bool IsAffine
 		{
-			get { return (IsDistinguishedIdentity || (M14 == 0.0f && M24 == 0.0f && M34 == 0.0f && M44 == 1.0f)); }
+			get { return (IsDistinguishedIdentity || (M14 == 0.0 && M24 == 0.0 && M34 == 0.0 && M44 == 1.0)); }
 		}
 
 		public bool HasInverse
@@ -103,26 +103,26 @@ namespace Nexus
 			get { return !MathUtility.IsZero(this.Determinant); }
 		}
 
-		public float Determinant
+		public double Determinant
 		{
 			get
 			{
 				if (IsDistinguishedIdentity)
-					return 1.0f;
+					return 1.0;
 
 				if (this.IsAffine)
 					return this.GetNormalizedAffineDeterminant();
 
-				float num6 = (this.M13 * this.M24) - (this.M23 * this.M14);
-				float num5 = (this.M13 * this.M34) - (this.M33 * this.M14);
-				float num4 = (this.M13 * this.M44) - (this.M43 * this.M14);
-				float num3 = (this.M23 * this.M34) - (this.M33 * this.M24);
-				float num2 = (this.M23 * this.M44) - (this.M43 * this.M24);
-				float num = (this.M33 * this.M44) - (this.M43 * this.M34);
-				float num10 = ((this.M22 * num5) - (this.M32 * num6)) - (this.M12 * num3);
-				float num9 = ((this.M12 * num2) - (this.M22 * num4)) + (this.M42 * num6);
-				float num8 = ((this.M32 * num4) - (this.M42 * num5)) - (this.M12 * num);
-				float num7 = ((this.M22 * num) - (this.M32 * num2)) + (this.M42 * num3);
+				double num6 = (this.M13 * this.M24) - (this.M23 * this.M14);
+				double num5 = (this.M13 * this.M34) - (this.M33 * this.M14);
+				double num4 = (this.M13 * this.M44) - (this.M43 * this.M14);
+				double num3 = (this.M23 * this.M34) - (this.M33 * this.M24);
+				double num2 = (this.M23 * this.M44) - (this.M43 * this.M24);
+				double num = (this.M33 * this.M44) - (this.M43 * this.M34);
+				double num10 = ((this.M22 * num5) - (this.M32 * num6)) - (this.M12 * num3);
+				double num9 = ((this.M12 * num2) - (this.M22 * num4)) + (this.M42 * num6);
+				double num8 = ((this.M32 * num4) - (this.M42 * num5)) - (this.M12 * num);
+				double num7 = ((this.M22 * num) - (this.M32 * num2)) + (this.M42 * num3);
 				return ((((this.M41 * num10) + (this.M31 * num9)) + (this.M21 * num8)) + (this.M11 * num7));
 			}
 		}
@@ -131,7 +131,7 @@ namespace Nexus
 		{
 			get
 			{
-				float det = ((M11 *
+				double det = ((M11 *
 					(M22 * M33 -
 					 M23 * M32)) -
 				 (M12 *
@@ -140,7 +140,7 @@ namespace Nexus
 				 (M13 *
 					(M21 * M32 -
 					 M22 * M31)));
-				return det < 0.0f;
+				return det < 0.0;
 			}
 		}
 
@@ -149,10 +149,10 @@ namespace Nexus
 			get
 			{
 #if false
-				float det = Math.Abs(M11 * (M22 * M33 - M23 * M32)) -
+				double det = Math.Abs(M11 * (M22 * M33 - M23 * M32)) -
 					(M12 * (M21 * M33 - M23 * M31)) +
 					(M13 * (M21 * M32 - M22 * M31));
-				return (det < 0.999f || det > 1.001f);
+				return (det < 0.999 || det > 1.001);
 #endif
 				return false;
 			}
@@ -185,7 +185,7 @@ namespace Nexus
 
 		#region Indexer
 
-		public float this[int column, int row]
+		public double this[int column, int row]
 		{
 			get
 			{
@@ -197,7 +197,7 @@ namespace Nexus
 			}
 		}
 
-		public float this[int index]
+		public double this[int index]
 		{
 			get
 			{
@@ -398,10 +398,10 @@ namespace Nexus
 		{
 			if (!this.IsDistinguishedIdentity)
 			{
-				float x = point.X;
-				float y = point.Y;
-				float z = point.Z;
-				float w = point.W;
+				double x = point.X;
+				double y = point.Y;
+				double z = point.Z;
+				double w = point.W;
 				point.X = (((x * this.M11) + (y * this.M21)) + (z * this.M31)) + (w * this.M41);
 				point.Y = (((x * this.M12) + (y * this.M22)) + (z * this.M32)) + (w * this.M42);
 				point.Z = (((x * this.M13) + (y * this.M23)) + (z * this.M33)) + (w * this.M43);
@@ -413,15 +413,15 @@ namespace Nexus
 		{
 			if (!IsDistinguishedIdentity)
 			{
-				float x = point.X;
-				float y = point.Y;
-				float z = point.Z;
+				double x = point.X;
+				double y = point.Y;
+				double z = point.Z;
 				point.X = (((x * M11) + (y * M21)) + (z * M31)) + M41;
 				point.Y = (((x * M12) + (y * M22)) + (z * M32)) + M42;
 				point.Z = (((x * M13) + (y * M23)) + (z * M33)) + M43;
 				if (!IsAffine)
 				{
-					float w = (((x * M14) + (y * M24)) + (z * M34)) + M44;
+					double w = (((x * M14) + (y * M24)) + (z * M34)) + M44;
 					point.X /= w;
 					point.Y /= w;
 					point.Z /= w;
@@ -433,9 +433,9 @@ namespace Nexus
 		{
 			if (!this.IsDistinguishedIdentity)
 			{
-				float x = vector.X;
-				float y = vector.Y;
-				float z = vector.Z;
+				double x = vector.X;
+				double y = vector.Y;
+				double z = vector.Z;
 				vector.X = ((x * this.M11) + (y * this.M21)) + (z * this.M31);
 				vector.Y = ((x * this.M12) + (y * this.M22)) + (z * this.M32);
 				vector.Z = ((x * this.M13) + (y * this.M23)) + (z * this.M33);
@@ -452,7 +452,7 @@ namespace Nexus
 
 		private static Matrix3D CreateIdentity()
 		{
-			return new Matrix3D(1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f);
+			return new Matrix3D(1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0);
 		}
 
 		#region Static Create* methods
@@ -467,22 +467,22 @@ namespace Nexus
 		/// <param name="zNearPlane">Minimum z-value of the view volume.</param>
 		/// <param name="zFarPlane">Maximum z-value of the view volume.</param>
 		/// <returns>The created projection matrix with normalized device coordinates in the range  (–1, –1, 0) to (1, 1, 1).</returns>
-		public static Matrix3D CreateOrthographic(float width, float height, float zNearPlane, float zFarPlane)
+		public static Matrix3D CreateOrthographic(double width, double height, double zNearPlane, double zFarPlane)
 		{
-			/*Matrix3D matrix1 = CreateScale(2f / width, 2 / height, 1 / (zNearPlane - zFarPlane));
+			/*Matrix3D matrix1 = CreateScale(2 / width, 2 / height, 1 / (zNearPlane - zFarPlane));
 			Matrix3D matrix2 = CreateTranslation(0, 0, zNearPlane);
 			return matrix1 * matrix2;*/
 
 			Matrix3D matrix;
-			matrix.M11 = 2f / width;
-			matrix.M12 = matrix.M13 = matrix.M14 = 0f;
-			matrix.M22 = 2f / height;
-			matrix.M21 = matrix.M23 = matrix.M24 = 0f;
-			matrix.M33 = 1f / (zNearPlane - zFarPlane);
-			matrix.M31 = matrix.M32 = matrix.M34 = 0f;
-			matrix.M41 = matrix.M42 = 0f;
+			matrix.M11 = 2 / width;
+			matrix.M12 = matrix.M13 = matrix.M14 = 0;
+			matrix.M22 = 2 / height;
+			matrix.M21 = matrix.M23 = matrix.M24 = 0;
+			matrix.M33 = 1 / (zNearPlane - zFarPlane);
+			matrix.M31 = matrix.M32 = matrix.M34 = 0;
+			matrix.M41 = matrix.M42 = 0;
 			matrix.M43 = zNearPlane / (zNearPlane - zFarPlane);
-			matrix.M44 = 1f;
+			matrix.M44 = 1;
 			return matrix;
 		}
 
@@ -500,7 +500,7 @@ namespace Nexus
 		/// <param name="zNearPlane">Minimum z-value of the view volume.</param>
 		/// <param name="zFarPlane">Maximum z-value of the view volume.</param>
 		/// <returns>The created projection matrix with normalized device coordinates in the range  (–1, –1, 0) to (1, 1, 1).</returns>
-		public static Matrix3D CreateOrthographicOffCenter(float left, float right, float bottom, float top, float zNearPlane, float zFarPlane)
+		public static Matrix3D CreateOrthographicOffCenter(double left, double right, double bottom, double top, double zNearPlane, double zFarPlane)
 		{
 			/*return new Matrix3D(
 				2 / (right - left), 0, 0, 0,
@@ -509,16 +509,16 @@ namespace Nexus
 				(left + right) / (left - right), (bottom + top) / (bottom - top), zNearPlane / (zNearPlane - zFarPlane), 1);*/
 
 			Matrix3D matrix;
-			matrix.M11 = 2f / (right - left);
-			matrix.M12 = matrix.M13 = matrix.M14 = 0f;
-			matrix.M22 = 2f / (top - bottom);
-			matrix.M21 = matrix.M23 = matrix.M24 = 0f;
-			matrix.M33 = 1f / (zNearPlane - zFarPlane);
-			matrix.M31 = matrix.M32 = matrix.M34 = 0f;
+			matrix.M11 = 2 / (right - left);
+			matrix.M12 = matrix.M13 = matrix.M14 = 0;
+			matrix.M22 = 2 / (top - bottom);
+			matrix.M21 = matrix.M23 = matrix.M24 = 0;
+			matrix.M33 = 1 / (zNearPlane - zFarPlane);
+			matrix.M31 = matrix.M32 = matrix.M34 = 0;
 			matrix.M41 = (left + right) / (left - right);
 			matrix.M42 = (top + bottom) / (bottom - top);
 			matrix.M43 = zNearPlane / (zNearPlane - zFarPlane);
-			matrix.M44 = 1f;
+			matrix.M44 = 1;
 			return matrix;
 		}
 
@@ -537,10 +537,10 @@ namespace Nexus
 		/// <param name="nearPlaneDistance">Distance to the near view plane.</param>
 		/// <param name="farPlaneDistance">Distance to the far view plane.</param>
 		/// <returns>The created projection matrix with normalized device coordinates in the range  (–1, –1, 0) to (1, 1, 1).</returns>
-		public static Matrix3D CreatePerspectiveFieldOfView(float fieldOfView, float aspectRatio, float nearPlaneDistance, float farPlaneDistance)
+		public static Matrix3D CreatePerspectiveFieldOfView(double fieldOfView, double aspectRatio, double nearPlaneDistance, double farPlaneDistance)
 		{
 			// Validate arguments.
-			if ((fieldOfView <= 0) || (fieldOfView >= 3.141593f))
+			if ((fieldOfView <= 0) || (fieldOfView >= 3.141593))
 				throw new ArgumentOutOfRangeException("fieldOfView");
 			if (nearPlaneDistance <= 0)
 				throw new ArgumentOutOfRangeException("nearPlaneDistance");
@@ -549,12 +549,12 @@ namespace Nexus
 			if (nearPlaneDistance >= farPlaneDistance)
 				throw new ArgumentOutOfRangeException("nearPlaneDistance", "Far plane distance must be larger than near plane distance.");
 
-			float t = MathUtility.Tan(fieldOfView / 2.0f);
-			float nearMinusFar = nearPlaneDistance - farPlaneDistance;
+			double t = MathUtility.Tan(fieldOfView / 2.0);
+			double nearMinusFar = nearPlaneDistance - farPlaneDistance;
 
 			return new Matrix3D(
-				1.0f / t / aspectRatio, 0, 0, 0,
-				0, 1.0f / t, 0, 0,
+				1.0 / t / aspectRatio, 0, 0, 0,
+				0, 1.0 / t, 0, 0,
 				0, 0, farPlaneDistance / nearMinusFar, -1,
 				0, 0, (nearPlaneDistance * farPlaneDistance) / nearMinusFar, 0);
 		}
@@ -564,10 +564,10 @@ namespace Nexus
 		/// </summary>
 		/// <param name="radians">The amount, in radians, in which to rotate around the x-axis.</param>
 		/// <returns>The created rotation matrix.</returns>
-		public static Matrix3D CreateRotationX(float radians)
+		public static Matrix3D CreateRotationX(double radians)
 		{
-			float s = MathUtility.Sin(radians);
-			float c = MathUtility.Cos(radians);
+			double s = MathUtility.Sin(radians);
+			double c = MathUtility.Cos(radians);
 
 			return new Matrix3D(
 				1, 0, 0, 0,
@@ -581,10 +581,10 @@ namespace Nexus
 		/// </summary>
 		/// <param name="radians">The amount, in radians, in which to rotate around the y-axis.</param>
 		/// <returns>The created rotation matrix.</returns>
-		public static Matrix3D CreateRotationY(float radians)
+		public static Matrix3D CreateRotationY(double radians)
 		{
-			float s = MathUtility.Sin(radians);
-			float c = MathUtility.Cos(radians);
+			double s = MathUtility.Sin(radians);
+			double c = MathUtility.Cos(radians);
 
 			return new Matrix3D(
 				c, 0, -s, 0,
@@ -598,10 +598,10 @@ namespace Nexus
 		/// </summary>
 		/// <param name="radians">The amount, in radians, in which to rotate around the z-axis.</param>
 		/// <returns>The created rotation matrix.</returns>
-		public static Matrix3D CreateRotationZ(float radians)
+		public static Matrix3D CreateRotationZ(double radians)
 		{
-			float s = MathUtility.Sin(radians);
-			float c = MathUtility.Cos(radians);
+			double s = MathUtility.Sin(radians);
+			double c = MathUtility.Cos(radians);
 
 			return new Matrix3D(
 				c, s, 0, 0,
@@ -617,7 +617,7 @@ namespace Nexus
 		/// <param name="yScale">Value to scale by on the y-axis.</param>
 		/// <param name="zScale">Value to scale by on the z-axis.</param>
 		/// <returns>The created scaling matrix.</returns>
-		public static Matrix3D CreateScale(float xScale, float yScale, float zScale)
+		public static Matrix3D CreateScale(double xScale, double yScale, double zScale)
 		{
 			return new Matrix3D(
 				xScale, 0, 0, 0,
@@ -631,7 +631,7 @@ namespace Nexus
 		/// </summary>
 		/// <param name="scale">Amount to scale by.</param>
 		/// <returns>The created scaling matrix.</returns>
-		public static Matrix3D CreateScale(float scale)
+		public static Matrix3D CreateScale(double scale)
 		{
 			return CreateScale(scale, scale, scale);
 		}
@@ -648,7 +648,7 @@ namespace Nexus
 		/// <param name="yPosition">Value to translate by on the y-axis.</param>
 		/// <param name="zPosition">Value to translate by on the z-axis.</param>
 		/// <returns>The created translation matrix.</returns>
-		public static Matrix3D CreateTranslation(float xPosition, float yPosition, float zPosition)
+		public static Matrix3D CreateTranslation(double xPosition, double yPosition, double zPosition)
 		{
 			return new Matrix3D(
 				1, 0, 0, 0,
@@ -667,67 +667,67 @@ namespace Nexus
 			return CreateTranslation(point.X, point.Y, point.Z);
 		}
 
-		public static Matrix3D CreateFromAxisAngle(Vector3D axis, float angle)
+		public static Matrix3D CreateFromAxisAngle(Vector3D axis, double angle)
 		{
-			float x = axis.X;
-			float y = axis.Y;
-			float z = axis.Z;
-			float num2 = (float)System.Math.Sin((double)angle);
-			float num = (float)System.Math.Cos((double)angle);
-			float num11 = x * x;
-			float num10 = y * y;
-			float num9 = z * z;
-			float num8 = x * y;
-			float num7 = x * z;
-			float num6 = y * z;
+			double x = axis.X;
+			double y = axis.Y;
+			double z = axis.Z;
+			double num2 = (double)System.Math.Sin((double)angle);
+			double num = (double)System.Math.Cos((double)angle);
+			double num11 = x * x;
+			double num10 = y * y;
+			double num9 = z * z;
+			double num8 = x * y;
+			double num7 = x * z;
+			double num6 = y * z;
 			Matrix3D matrix = new Matrix3D(
-					num11 + (num * (1f - num11)),
+					num11 + (num * (1 - num11)),
 					(num8 - (num * num8)) + (num2 * z),
 					(num7 - (num * num7)) - (num2 * y),
-					0f,
+					0,
 					(num8 - (num * num8)) - (num2 * z),
-					num10 + (num * (1f - num10)),
+					num10 + (num * (1 - num10)),
 					(num6 - (num * num6)) + (num2 * x),
-					0f,
+					0,
 					(num7 - (num * num7)) + (num2 * y),
 					(num6 - (num * num6)) - (num2 * x),
-					num9 + (num * (1f - num9)),
-					0f,
-					0f,
-					0f,
-					0f,
-					1f);
+					num9 + (num * (1 - num9)),
+					0,
+					0,
+					0,
+					0,
+					1);
 			return matrix;
 		}
 
 		public static Matrix3D CreateFromQuaternion(Quaternion quaternion)
 		{
 			Matrix3D matrix = new Matrix3D();
-			float num9 = quaternion.X * quaternion.X;
-			float num8 = quaternion.Y * quaternion.Y;
-			float num7 = quaternion.Z * quaternion.Z;
-			float num6 = quaternion.X * quaternion.Y;
-			float num5 = quaternion.Z * quaternion.W;
-			float num4 = quaternion.Z * quaternion.X;
-			float num3 = quaternion.Y * quaternion.W;
-			float num2 = quaternion.Y * quaternion.Z;
-			float num = quaternion.X * quaternion.W;
-			matrix.M11 = 1f - (2f * (num8 + num7));
-			matrix.M12 = 2f * (num6 + num5);
-			matrix.M13 = 2f * (num4 - num3);
-			matrix.M14 = 0f;
-			matrix.M21 = 2f * (num6 - num5);
-			matrix.M22 = 1f - (2f * (num7 + num9));
-			matrix.M23 = 2f * (num2 + num);
-			matrix.M24 = 0f;
-			matrix.M31 = 2f * (num4 + num3);
-			matrix.M32 = 2f * (num2 - num);
-			matrix.M33 = 1f - (2f * (num8 + num9));
-			matrix.M34 = 0f;
-			matrix.M41 = 0f;
-			matrix.M42 = 0f;
-			matrix.M43 = 0f;
-			matrix.M44 = 1f;
+			double num9 = quaternion.X * quaternion.X;
+			double num8 = quaternion.Y * quaternion.Y;
+			double num7 = quaternion.Z * quaternion.Z;
+			double num6 = quaternion.X * quaternion.Y;
+			double num5 = quaternion.Z * quaternion.W;
+			double num4 = quaternion.Z * quaternion.X;
+			double num3 = quaternion.Y * quaternion.W;
+			double num2 = quaternion.Y * quaternion.Z;
+			double num = quaternion.X * quaternion.W;
+			matrix.M11 = 1 - (2 * (num8 + num7));
+			matrix.M12 = 2 * (num6 + num5);
+			matrix.M13 = 2 * (num4 - num3);
+			matrix.M14 = 0;
+			matrix.M21 = 2 * (num6 - num5);
+			matrix.M22 = 1 - (2 * (num7 + num9));
+			matrix.M23 = 2 * (num2 + num);
+			matrix.M24 = 0;
+			matrix.M31 = 2 * (num4 + num3);
+			matrix.M32 = 2 * (num2 - num);
+			matrix.M33 = 1 - (2 * (num8 + num9));
+			matrix.M34 = 0;
+			matrix.M41 = 0;
+			matrix.M42 = 0;
+			matrix.M43 = 0;
+			matrix.M44 = 1;
 			return matrix;
 		}
 
@@ -743,19 +743,19 @@ namespace Nexus
 					vector2.X,
 					vector3.X,
 					vector.X,
-					0f,
+					0,
 					vector2.Y,
 					vector3.Y,
 					vector.Y,
-					0f,
+					0,
 					vector2.Z,
 					vector3.Z,
 					vector.Z,
-					0f,
+					0,
 					-Vector3D.Dot(vector2, position),
 					-Vector3D.Dot(vector3, position),
 					-Vector3D.Dot(vector, position),
-					1f);
+					1);
 			return matrix;
 		}
 
@@ -763,47 +763,47 @@ namespace Nexus
 
 		public static Matrix3D Invert(Matrix3D matrix)
 		{
-			float num5 = matrix.M11;
-			float num4 = matrix.M12;
-			float num3 = matrix.M13;
-			float num2 = matrix.M14;
-			float num9 = matrix.M21;
-			float num8 = matrix.M22;
-			float num7 = matrix.M23;
-			float num6 = matrix.M24;
-			float num17 = matrix.M31;
-			float num16 = matrix.M32;
-			float num15 = matrix.M33;
-			float num14 = matrix.M34;
-			float num13 = matrix.M41;
-			float num12 = matrix.M42;
-			float num11 = matrix.M43;
-			float num10 = matrix.M44;
-			float num23 = (num15 * num10) - (num14 * num11);
-			float num22 = (num16 * num10) - (num14 * num12);
-			float num21 = (num16 * num11) - (num15 * num12);
-			float num20 = (num17 * num10) - (num14 * num13);
-			float num19 = (num17 * num11) - (num15 * num13);
-			float num18 = (num17 * num12) - (num16 * num13);
-			float num39 = ((num8 * num23) - (num7 * num22)) + (num6 * num21);
-			float num38 = -(((num9 * num23) - (num7 * num20)) + (num6 * num19));
-			float num37 = ((num9 * num22) - (num8 * num20)) + (num6 * num18);
-			float num36 = -(((num9 * num21) - (num8 * num19)) + (num7 * num18));
-			float num = 1f / ((((num5 * num39) + (num4 * num38)) + (num3 * num37)) + (num2 * num36));
+			double num5 = matrix.M11;
+			double num4 = matrix.M12;
+			double num3 = matrix.M13;
+			double num2 = matrix.M14;
+			double num9 = matrix.M21;
+			double num8 = matrix.M22;
+			double num7 = matrix.M23;
+			double num6 = matrix.M24;
+			double num17 = matrix.M31;
+			double num16 = matrix.M32;
+			double num15 = matrix.M33;
+			double num14 = matrix.M34;
+			double num13 = matrix.M41;
+			double num12 = matrix.M42;
+			double num11 = matrix.M43;
+			double num10 = matrix.M44;
+			double num23 = (num15 * num10) - (num14 * num11);
+			double num22 = (num16 * num10) - (num14 * num12);
+			double num21 = (num16 * num11) - (num15 * num12);
+			double num20 = (num17 * num10) - (num14 * num13);
+			double num19 = (num17 * num11) - (num15 * num13);
+			double num18 = (num17 * num12) - (num16 * num13);
+			double num39 = ((num8 * num23) - (num7 * num22)) + (num6 * num21);
+			double num38 = -(((num9 * num23) - (num7 * num20)) + (num6 * num19));
+			double num37 = ((num9 * num22) - (num8 * num20)) + (num6 * num18);
+			double num36 = -(((num9 * num21) - (num8 * num19)) + (num7 * num18));
+			double num = 1 / ((((num5 * num39) + (num4 * num38)) + (num3 * num37)) + (num2 * num36));
 
-			float num35 = (num7 * num10) - (num6 * num11);
-			float num34 = (num8 * num10) - (num6 * num12);
-			float num33 = (num8 * num11) - (num7 * num12);
-			float num32 = (num9 * num10) - (num6 * num13);
-			float num31 = (num9 * num11) - (num7 * num13);
-			float num30 = (num9 * num12) - (num8 * num13);
+			double num35 = (num7 * num10) - (num6 * num11);
+			double num34 = (num8 * num10) - (num6 * num12);
+			double num33 = (num8 * num11) - (num7 * num12);
+			double num32 = (num9 * num10) - (num6 * num13);
+			double num31 = (num9 * num11) - (num7 * num13);
+			double num30 = (num9 * num12) - (num8 * num13);
 
-			float num29 = (num7 * num14) - (num6 * num15);
-			float num28 = (num8 * num14) - (num6 * num16);
-			float num27 = (num8 * num15) - (num7 * num16);
-			float num26 = (num9 * num14) - (num6 * num17);
-			float num25 = (num9 * num15) - (num7 * num17);
-			float num24 = (num9 * num16) - (num8 * num17);
+			double num29 = (num7 * num14) - (num6 * num15);
+			double num28 = (num8 * num14) - (num6 * num16);
+			double num27 = (num8 * num15) - (num7 * num16);
+			double num26 = (num9 * num14) - (num6 * num17);
+			double num25 = (num9 * num15) - (num7 * num17);
+			double num24 = (num9 * num16) - (num8 * num17);
 
 			Matrix3D matrix2 = new Matrix3D(num39 * num,
 					-(((num4 * num23) - (num3 * num22)) + (num2 * num21)) * num,
@@ -846,11 +846,11 @@ namespace Nexus
 			return matrix2;
 		}
 
-		private float GetNormalizedAffineDeterminant()
+		private double GetNormalizedAffineDeterminant()
 		{
-			float num3 = (this.M12 * this.M23) - (this.M22 * this.M13);
-			float num2 = (this.M32 * this.M13) - (this.M12 * this.M33);
-			float num = (this.M22 * this.M33) - (this.M32 * this.M23);
+			double num3 = (this.M12 * this.M23) - (this.M22 * this.M13);
+			double num2 = (this.M32 * this.M13) - (this.M12 * this.M33);
+			double num = (this.M22 * this.M33) - (this.M32 * this.M23);
 			return (((this.M31 * num3) + (this.M21 * num2)) + (this.M11 * num));
 		}
 
@@ -861,40 +861,40 @@ namespace Nexus
 				if (IsAffine)
 					return NormalizedAffineInvert();
 
-				float num7 = (this.M13 * this.M24) - (this.M23 * this.M14);
-				float num6 = (this.M13 * this.M34) - (this.M33 * this.M14);
-				float num5 = (this.M13 * this.M44) - (this.M43 * this.M14);
-				float num4 = (this.M23 * this.M34) - (this.M33 * this.M24);
-				float num3 = (this.M23 * this.M44) - (this.M43 * this.M24);
-				float num2 = (this.M33 * this.M44) - (this.M43 * this.M34);
-				float num12 = ((this.M22 * num6) - (this.M32 * num7)) - (this.M12 * num4);
-				float num11 = ((this.M12 * num3) - (this.M22 * num5)) + (this.M42 * num7);
-				float num10 = ((this.M32 * num5) - (this.M42 * num6)) - (this.M12 * num2);
-				float num9 = ((this.M22 * num2) - (this.M32 * num3)) + (this.M42 * num4);
-				float num8 = (((this.M41 * num12) + (this.M31 * num11)) + (this.M21 * num10)) + (this.M11 * num9);
+				double num7 = (this.M13 * this.M24) - (this.M23 * this.M14);
+				double num6 = (this.M13 * this.M34) - (this.M33 * this.M14);
+				double num5 = (this.M13 * this.M44) - (this.M43 * this.M14);
+				double num4 = (this.M23 * this.M34) - (this.M33 * this.M24);
+				double num3 = (this.M23 * this.M44) - (this.M43 * this.M24);
+				double num2 = (this.M33 * this.M44) - (this.M43 * this.M34);
+				double num12 = ((this.M22 * num6) - (this.M32 * num7)) - (this.M12 * num4);
+				double num11 = ((this.M12 * num3) - (this.M22 * num5)) + (this.M42 * num7);
+				double num10 = ((this.M32 * num5) - (this.M42 * num6)) - (this.M12 * num2);
+				double num9 = ((this.M22 * num2) - (this.M32 * num3)) + (this.M42 * num4);
+				double num8 = (((this.M41 * num12) + (this.M31 * num11)) + (this.M21 * num10)) + (this.M11 * num9);
 
 				if (MathUtility.IsZero(num8))
 					return false;
 
-				float num24 = ((this.M11 * num4) - (this.M21 * num6)) + (this.M31 * num7);
-				float num23 = ((this.M21 * num5) - (this.M41 * num7)) - (this.M11 * num3);
-				float num22 = ((this.M11 * num2) - (this.M31 * num5)) + (this.M41 * num6);
-				float num21 = ((this.M31 * num3) - (this.M41 * num4)) - (this.M21 * num2);
+				double num24 = ((this.M11 * num4) - (this.M21 * num6)) + (this.M31 * num7);
+				double num23 = ((this.M21 * num5) - (this.M41 * num7)) - (this.M11 * num3);
+				double num22 = ((this.M11 * num2) - (this.M31 * num5)) + (this.M41 * num6);
+				double num21 = ((this.M31 * num3) - (this.M41 * num4)) - (this.M21 * num2);
 				num7 = (this.M11 * this.M22) - (this.M21 * this.M12);
 				num6 = (this.M11 * this.M32) - (this.M31 * this.M12);
 				num5 = (this.M11 * this.M42) - (this.M41 * this.M12);
 				num4 = (this.M21 * this.M32) - (this.M31 * this.M22);
 				num3 = (this.M21 * this.M42) - (this.M41 * this.M22);
 				num2 = (this.M31 * this.M42) - (this.M41 * this.M32);
-				float num20 = ((this.M13 * num4) - (this.M23 * num6)) + (this.M33 * num7);
-				float num19 = ((this.M23 * num5) - (this.M43 * num7)) - (this.M13 * num3);
-				float num18 = ((this.M13 * num2) - (this.M33 * num5)) + (this.M43 * num6);
-				float num17 = ((this.M33 * num3) - (this.M43 * num4)) - (this.M23 * num2);
-				float num16 = ((this.M24 * num6) - (this.M34 * num7)) - (this.M14 * num4);
-				float num15 = ((this.M14 * num3) - (this.M24 * num5)) + (this.M44 * num7);
-				float num14 = ((this.M34 * num5) - (this.M44 * num6)) - (this.M14 * num2);
-				float num13 = ((this.M24 * num2) - (this.M34 * num3)) + (this.M44 * num4);
-				float num = 1.0f / num8;
+				double num20 = ((this.M13 * num4) - (this.M23 * num6)) + (this.M33 * num7);
+				double num19 = ((this.M23 * num5) - (this.M43 * num7)) - (this.M13 * num3);
+				double num18 = ((this.M13 * num2) - (this.M33 * num5)) + (this.M43 * num6);
+				double num17 = ((this.M33 * num3) - (this.M43 * num4)) - (this.M23 * num2);
+				double num16 = ((this.M24 * num6) - (this.M34 * num7)) - (this.M14 * num4);
+				double num15 = ((this.M14 * num3) - (this.M24 * num5)) + (this.M44 * num7);
+				double num14 = ((this.M34 * num5) - (this.M44 * num6)) - (this.M14 * num2);
+				double num13 = ((this.M24 * num2) - (this.M34 * num3)) + (this.M44 * num4);
+				double num = 1.0 / num8;
 				this.M11 = num9 * num;
 				this.M12 = num10 * num;
 				this.M13 = num11 * num;
@@ -917,29 +917,29 @@ namespace Nexus
 
 		private bool NormalizedAffineInvert()
 		{
-			float num11 = (this.M12 * this.M23) - (this.M22 * this.M13);
-			float num10 = (this.M32 * this.M13) - (this.M12 * this.M33);
-			float num9 = (this.M22 * this.M33) - (this.M32 * this.M23);
-			float num8 = ((this.M31 * num11) + (this.M21 * num10)) + (this.M11 * num9);
+			double num11 = (this.M12 * this.M23) - (this.M22 * this.M13);
+			double num10 = (this.M32 * this.M13) - (this.M12 * this.M33);
+			double num9 = (this.M22 * this.M33) - (this.M32 * this.M23);
+			double num8 = ((this.M31 * num11) + (this.M21 * num10)) + (this.M11 * num9);
 			if (MathUtility.IsZero(num8))
 				return false;
 
-			float num20 = (this.M21 * this.M13) - (this.M11 * this.M23);
-			float num19 = (this.M11 * this.M33) - (this.M31 * this.M13);
-			float num18 = (this.M31 * this.M23) - (this.M21 * this.M33);
-			float num7 = (this.M11 * this.M22) - (this.M21 * this.M12);
-			float num6 = (this.M11 * this.M32) - (this.M31 * this.M12);
-			float num5 = (this.M11 * this.M42) - (this.M41 * this.M12);
-			float num4 = (this.M21 * this.M32) - (this.M31 * this.M22);
-			float num3 = (this.M21 * this.M42) - (this.M41 * this.M22);
-			float num2 = (this.M31 * this.M42) - (this.M41 * this.M32);
-			float num17 = ((this.M23 * num5) - (this.M43 * num7)) - (this.M13 * num3);
-			float num16 = ((this.M13 * num2) - (this.M33 * num5)) + (this.M43 * num6);
-			float num15 = ((this.M33 * num3) - (this.M43 * num4)) - (this.M23 * num2);
-			float num14 = num7;
-			float num13 = -num6;
-			float num12 = num4;
-			float num = 1.0f / num8;
+			double num20 = (this.M21 * this.M13) - (this.M11 * this.M23);
+			double num19 = (this.M11 * this.M33) - (this.M31 * this.M13);
+			double num18 = (this.M31 * this.M23) - (this.M21 * this.M33);
+			double num7 = (this.M11 * this.M22) - (this.M21 * this.M12);
+			double num6 = (this.M11 * this.M32) - (this.M31 * this.M12);
+			double num5 = (this.M11 * this.M42) - (this.M41 * this.M12);
+			double num4 = (this.M21 * this.M32) - (this.M31 * this.M22);
+			double num3 = (this.M21 * this.M42) - (this.M41 * this.M22);
+			double num2 = (this.M31 * this.M42) - (this.M41 * this.M32);
+			double num17 = ((this.M23 * num5) - (this.M43 * num7)) - (this.M13 * num3);
+			double num16 = ((this.M13 * num2) - (this.M33 * num5)) + (this.M43 * num6);
+			double num15 = ((this.M33 * num3) - (this.M43 * num4)) - (this.M23 * num2);
+			double num14 = num7;
+			double num13 = -num6;
+			double num12 = num4;
+			double num = 1.0 / num8;
 			this.M11 = num9 * num;
 			this.M12 = num10 * num;
 			this.M13 = num11 * num;
@@ -962,13 +962,13 @@ namespace Nexus
 			translation.Y = this.M42;
 			translation.Z = this.M43;
 
-			float xs = (Math.Sign(M11 * M12 * M13 * M14) < 0) ? -1f : 1f;
-			float ys = (Math.Sign(M21 * M22 * M23 * M24) < 0) ? -1f : 1f;
-			float zs = (Math.Sign(M31 * M32 * M33 * M34) < 0) ? -1f : 1f;
+			double xs = (Math.Sign(M11 * M12 * M13 * M14) < 0) ? -1 : 1;
+			double ys = (Math.Sign(M21 * M22 * M23 * M24) < 0) ? -1 : 1;
+			double zs = (Math.Sign(M31 * M32 * M33 * M34) < 0) ? -1 : 1;
 
-			scale.X = xs * (float)Math.Sqrt(this.M11 * this.M11 + this.M12 * this.M12 + this.M13 * this.M13);
-			scale.Y = ys * (float)Math.Sqrt(this.M21 * this.M21 + this.M22 * this.M22 + this.M23 * this.M23);
-			scale.Z = zs * (float)Math.Sqrt(this.M31 * this.M31 + this.M32 * this.M32 + this.M33 * this.M33);
+			scale.X = xs * (double)Math.Sqrt(this.M11 * this.M11 + this.M12 * this.M12 + this.M13 * this.M13);
+			scale.Y = ys * (double)Math.Sqrt(this.M21 * this.M21 + this.M22 * this.M22 + this.M23 * this.M23);
+			scale.Z = zs * (double)Math.Sqrt(this.M31 * this.M31 + this.M32 * this.M32 + this.M33 * this.M33);
 
 			if (scale.X == 0.0 || scale.Y == 0.0 || scale.Z == 0.0)
 			{
@@ -1016,7 +1016,7 @@ namespace Nexus
 				(((matrix1.M41 * matrix2.M14) + (matrix1.M42 * matrix2.M24)) + (matrix1.M43 * matrix2.M34)) + (matrix1.M44 * matrix2.M44));
 		}
 
-		public static Matrix3D operator *(Matrix3D matrix, float scaleFactor)
+		public static Matrix3D operator *(Matrix3D matrix, double scaleFactor)
 		{
 			return new Matrix3D(
 				matrix.M11 * scaleFactor,
@@ -1070,7 +1070,7 @@ namespace Nexus
 
 		#endregion
 
-		public static Matrix3D CreateFromYawPitchRoll(float yaw, float pitch, float roll)
+		public static Matrix3D CreateFromYawPitchRoll(double yaw, double pitch, double roll)
 		{
 			Quaternion quaternion = Quaternion.CreateFromYawPitchRoll(yaw, pitch, roll);
 			return CreateFromQuaternion(quaternion);

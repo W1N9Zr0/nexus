@@ -6,7 +6,7 @@ namespace Nexus.Graphics.Cameras
 	/// </summary>
 	public abstract class Camera
 	{
-		public abstract Matrix3D GetProjectionMatrix(float aspectRatio);
+		public abstract Matrix3D GetProjectionMatrix(double aspectRatio);
 		public abstract Matrix3D GetViewMatrix();
 	}
 }

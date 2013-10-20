@@ -110,7 +110,7 @@ namespace Nexus.Objects3D
 			{
 				// Check the top
 				Plane3D tempPlane = plane;
-				float val = PlaneHelper.ClassifyPoint(ref point, ref tempPlane);
+				double val = PlaneHelper.ClassifyPoint(ref point, ref tempPlane);
 				if (val > 0)
 				{
 					return ContainmentType.Disjoint;
@@ -144,7 +144,7 @@ namespace Nexus.Objects3D
 
 		private static Point3D ComputeIntersection(ref Plane3D plane, ref Ray3D ray)
 		{
-			float num = (-plane.D - Vector3D.Dot(plane.Normal, (Vector3D) ray.Origin)) / Vector3D.Dot(plane.Normal, ray.Direction);
+			double num = (-plane.D - Vector3D.Dot(plane.Normal, (Vector3D) ray.Origin)) / Vector3D.Dot(plane.Normal, ray.Direction);
 			return (ray.Origin + ray.Direction * num);
 		}
 
@@ -154,7 +154,7 @@ namespace Nexus.Objects3D
 			{
 				Direction = (Vector3D) Normal3D.Cross(p1.Normal, p2.Normal)
 			};
-			float num = ray.Direction.LengthSquared();
+			double num = ray.Direction.LengthSquared();
 			ray.Origin = (Point3D) (Vector3D.Cross((-p1.D * p2.Normal) + (p2.D * p1.Normal), ray.Direction) / num);
 			return ray;
 		}
@@ -189,7 +189,7 @@ namespace Nexus.Objects3D
 			this.planes[1].D = -value.M44 + value.M43;
 			for (int i = 0; i < 6; i++)
 			{
-				float num2 = this.planes[i].Normal.Length();
+				double num2 = this.planes[i].Normal.Length();
 				this.planes[i].Normal = (this.planes[i].Normal / num2);
 				this.planes[i].D /= num2;
 			}

@@ -5,11 +5,11 @@ namespace Nexus.Graphics.Colors
 	[StructLayout(LayoutKind.Sequential)]
 	public struct ColorRgbF
 	{
-		public float R;
-		public float G;
-		public float B;
+		public double R;
+		public double G;
+		public double B;
 
-		public ColorRgbF(float r, float g, float b)
+		public ColorRgbF(double r, double g, double b)
 		{
 			R = r;
 			G = g;
@@ -19,9 +19,9 @@ namespace Nexus.Graphics.Colors
 		public static ColorRgbF FromRgbColor(Color value)
 		{
 			return new ColorRgbF(
-				value.R / 255.0f,
-				value.G / 255.0f,
-				value.B / 255.0f);
+				value.R / 255.0,
+				value.G / 255.0,
+				value.B / 255.0);
 		}
 
 		#region Operators
@@ -34,7 +34,7 @@ namespace Nexus.Graphics.Colors
 				left.B * right.B);
 		}
 
-		public static ColorRgbF operator *(ColorRgbF value, float multiplier)
+		public static ColorRgbF operator *(ColorRgbF value, double multiplier)
 		{
 			return new ColorRgbF(
 				value.R * multiplier,

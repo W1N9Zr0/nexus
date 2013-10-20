@@ -2,7 +2,7 @@ namespace Nexus.Graphics.Transforms
 {
 	public class AxisAngleRotation3D : Rotation
 	{
-		public float Angle
+		public double Angle
 		{
 			get;
 			set;

@@ -8,7 +8,7 @@ namespace Nexus.Graphics.Colors
 	{
 		#region Constructor
 
-		public HsbColor(float h, float s, float b)
+		public HsbColor(double h, double s, double b)
 			: this()
 		{
 			H = h;
@@ -20,9 +20,9 @@ namespace Nexus.Graphics.Colors
 
 		#region Properties
 
-		public float H { get; set; }
-		public float S { get; set; }
-		public float B { get; set; }
+		public double H { get; set; }
+		public double S { get; set; }
+		public double B { get; set; }
 
 		#endregion
 
@@ -30,10 +30,10 @@ namespace Nexus.Graphics.Colors
 
 		public Color ToRgbColor()
 		{
-			float r = 0, g = 0, b = 0;
+			double r = 0, g = 0, b = 0;
 
 			// If saturation is 0, the colour is a shade of grey.
-			if (S == 0.0f)
+			if (S == 0.0)
 			{
 				r = g = b = B;
 			}
@@ -41,12 +41,12 @@ namespace Nexus.Graphics.Colors
 			{
 				// The HSB model can be presented on a cone with hexagonal shape.
 				// For each side of the hexagon, a separate case is calculated.
-				float h = H * 6.0f; // to bring hue to a number between 0 and 6, better for the calcuations
+				double h = H * 6.0; // to bring hue to a number between 0 and 6, better for the calcuations
 				int i = (int) System.Math.Floor(h); // eg. 2.7 becomes 2, 3.01 becomes 3, and 4.9999 becomes 4
-				float f = h - i; // the fractional part of h
-				float p = B * (1 - S);
-				float q = B * (1 - (S * f));
-				float t = B * (1 - (S * (1 - f)));
+				double f = h - i; // the fractional part of h
+				double p = B * (1 - S);
+				double q = B * (1 - (S * f));
+				double t = B * (1 - (S * (1 - f)));
 				switch (i)
 				{
 					case 0: r = B; g = t; b = p; break;
@@ -58,7 +58,7 @@ namespace Nexus.Graphics.Colors
 				}
 			}
 
-			return new Color((byte) (r * 255.0f), (byte) (g * 255.0f), (byte) (b * 255.0f));
+			return new Color((byte) (r * 255.0), (byte) (g * 255.0), (byte) (b * 255.0));
 		}
 
 		#endregion
@@ -72,32 +72,32 @@ namespace Nexus.Graphics.Colors
 
 		public static HsbColor FromRgbColorF(ColorF rgb)
 		{
-			float minColour = System.Math.Min(System.Math.Min(rgb.R, rgb.G), rgb.B);
-			float maxColour = System.Math.Max(System.Math.Max(rgb.R, rgb.G), rgb.B);
-			float delta = maxColour - minColour;
+			double minColour = System.Math.Min(System.Math.Min(rgb.R, rgb.G), rgb.B);
+			double maxColour = System.Math.Max(System.Math.Max(rgb.R, rgb.G), rgb.B);
+			double delta = maxColour - minColour;
 
-			float b = maxColour;
+			double b = maxColour;
 
 			// If the colour is black, the value of saturation doesn't matter so it
 			// can be set to 0. This has to be done to avoid a division by 0.
-			float s = (maxColour != 0) ? 255 * delta / maxColour : 0.0f;
+			double s = (maxColour != 0) ? 255 * delta / maxColour : 0.0;
 
 			// Calculate hue. If saturation is 0, the colour is gray so hue doesn't
 			// matter. Again this case is handled separately to avoid divisions by 0.
-			float h;
-			if (s == 0.0f)
+			double h;
+			if (s == 0.0)
 			{
-				h = 0.0f;
+				h = 0.0;
 			}
 			else
 			{
 				if (rgb.R == maxColour)
 					h = (rgb.G - rgb.B) / delta;
 				else if (rgb.G == maxColour)
-					h = 2.0f + (rgb.B - rgb.R) / delta;
+					h = 2.0 + (rgb.B - rgb.R) / delta;
 				else
-					h = 4.0f + (rgb.R - rgb.G) / delta;
-				h /= 6.0f; // to bring it to a number between 0 and 1.
+					h = 4.0 + (rgb.R - rgb.G) / delta;
+				h /= 6.0; // to bring it to a number between 0 and 1.
 				if (h < 0)
 					++h;
 			}

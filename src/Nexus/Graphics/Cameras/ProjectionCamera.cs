@@ -9,8 +9,8 @@ namespace Nexus.Graphics.Cameras
 
 		protected ProjectionCamera()
 		{
-			NearPlaneDistance = 0.125f;
-			FarPlaneDistance = 10000.0f;
+			NearPlaneDistance = 0.125;
+			FarPlaneDistance = 10000.0;
 			Position = Point3D.Zero;
 			_lookDirection = Vector3D.Forward;
 			UpDirection = Vector3D.Up;
@@ -19,7 +19,7 @@ namespace Nexus.Graphics.Cameras
 		/// <summary>
 		/// Gets or sets a value that specifies the distance from the camera of the camera's far clip plane.
 		/// </summary>
-		public float FarPlaneDistance
+		public double FarPlaneDistance
 		{
 			get;
 			set;
@@ -37,7 +37,7 @@ namespace Nexus.Graphics.Cameras
 		/// <summary>
 		/// Gets or sets a value that specifies the distance from the camera of the camera's near clip plane.
 		/// </summary>
-		public float NearPlaneDistance
+		public double NearPlaneDistance
 		{
 			get;
 			set;

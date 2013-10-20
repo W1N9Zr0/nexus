@@ -2,9 +2,9 @@ namespace Nexus.Graphics.Transforms
 {
 	public class TranslateTransform : AffineTransform
 	{
-		public float OffsetX { get; set; }
-		public float OffsetY { get; set; }
-		public float OffsetZ { get; set; }
+		public double OffsetX { get; set; }
+		public double OffsetY { get; set; }
+		public double OffsetZ { get; set; }
 
 		public override Matrix3D Value
 		{

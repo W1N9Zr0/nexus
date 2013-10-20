@@ -10,14 +10,14 @@
 		{
 		}
 
-		public override float[] Solve(float[] initial, float x, float h)
+		public override double[] Solve(double[] initial, double x, double h)
 		{
 			// do Euler step with half the step value
-			float[] k1 = Callback(initial, x);
-			float[] temp = DoEulerStep(initial, k1, h / 2.0f);
+			double[] k1 = Callback(initial, x);
+			double[] temp = DoEulerStep(initial, k1, h / 2.0);
 
 			// calculate again at midpoint
-			float[] k2 = Callback(temp, x + (h / 2.0f));
+			double[] k2 = Callback(temp, x + (h / 2.0));
 
 			// use derivatives for complete timestep
 			return DoEulerStep(initial, k2, h);

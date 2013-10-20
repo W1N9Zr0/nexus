@@ -7,7 +7,7 @@ namespace Nexus.Graphics.Colors
 	{
 		#region Constructor
 
-		public HslColor(float h, float s, float l)
+		public HslColor(double h, double s, double l)
 			: this()
 		{
 			H = h;
@@ -19,9 +19,9 @@ namespace Nexus.Graphics.Colors
 
 		#region Properties
 
-		public float H { get; set; }
-		public float S { get; set; }
-		public float L { get; set; }
+		public double H { get; set; }
+		public double S { get; set; }
+		public double L { get; set; }
 
 		#endregion
 
@@ -29,9 +29,9 @@ namespace Nexus.Graphics.Colors
 
 		public Color ToRgbColor()
 		{
-			float r = 0, g = 0, b = 0;
+			double r = 0, g = 0, b = 0;
 
-			if (S == 0.0f)
+			if (S == 0.0)
 			{
 				// If saturation is 0, the colour is a shade of grey.
 				r = g = b = L;
@@ -41,34 +41,34 @@ namespace Nexus.Graphics.Colors
 				// If saturation is higher than 0, more calculations are needed again. Red, green
 				// and blue are calculated with the following formulas.
 				//Set the temporary values      
-				float temp2 = (L < 0.5f) ? L * (1 + S) : (L + S) - (L * S);
-				float temp1 = 2.0f * L - temp2;
-				float tempr = H + 1.0f / 3.0f;
+				double temp2 = (L < 0.5) ? L * (1 + S) : (L + S) - (L * S);
+				double temp1 = 2.0 * L - temp2;
+				double tempr = H + 1.0 / 3.0;
 				if (tempr > 1) tempr--;
-				float tempg = H;
-				float tempb = H - 1.0f / 3.0f;
+				double tempg = H;
+				double tempb = H - 1.0 / 3.0;
 				if (tempb < 0) tempb++;
 
 				// Red
-				if (tempr < 1.0f / 6.0f) r = temp1 + (temp2 - temp1) * 6.0f * tempr;
-				else if (tempr < 0.5f) r = temp2;
-				else if (tempr < 2.0f / 3.0f) r = temp1 + (temp2 - temp1) * ((2.0f / 3.0f) - tempr) * 6.0f;
+				if (tempr < 1.0 / 6.0) r = temp1 + (temp2 - temp1) * 6.0 * tempr;
+				else if (tempr < 0.5) r = temp2;
+				else if (tempr < 2.0 / 3.0) r = temp1 + (temp2 - temp1) * ((2.0 / 3.0) - tempr) * 6.0;
 				else r = temp1;
 
 				// Green
-				if (tempg < 1.0f / 6.0f) g = temp1 + (temp2 - temp1) * 6.0f * tempg;
-				else if (tempg < 0.5f) g = temp2;
-				else if (tempg < 2.0f / 3.0f) g = temp1 + (temp2 - temp1) * ((2.0f / 3.0f) - tempg) * 6.0f;
+				if (tempg < 1.0 / 6.0) g = temp1 + (temp2 - temp1) * 6.0 * tempg;
+				else if (tempg < 0.5) g = temp2;
+				else if (tempg < 2.0 / 3.0) g = temp1 + (temp2 - temp1) * ((2.0 / 3.0) - tempg) * 6.0;
 				else g = temp1;
 
 				// Blue
-				if (tempb < 1.0f / 6.0f) b = temp1 + (temp2 - temp1) * 6.0f * tempb;
-				else if (tempb < 0.5f) b = temp2;
-				else if (tempb < 2.0f / 3.0f) b = temp1 + (temp2 - temp1) * ((2.0f / 3.0f) - tempb) * 6.0f;
+				if (tempb < 1.0 / 6.0) b = temp1 + (temp2 - temp1) * 6.0 * tempb;
+				else if (tempb < 0.5) b = temp2;
+				else if (tempb < 2.0 / 3.0) b = temp1 + (temp2 - temp1) * ((2.0 / 3.0) - tempb) * 6.0;
 				else b = temp1;
 			}
 
-			return new Color((byte)(r * 255.0f), (byte)(g * 255.0f), (byte)(b * 255.0f));
+			return new Color((byte)(r * 255.0), (byte)(g * 255.0), (byte)(b * 255.0));
 		}
 
 		#endregion
@@ -82,12 +82,12 @@ namespace Nexus.Graphics.Colors
 
 		public static HslColor FromRgbColorF(ColorF rgb)
 		{
-			float h, s, l;
+			double h, s, l;
 
 			// These two variables are needed because the Lightness is defined as
 			// (minColour + maxColour) / 2
-			float minColour = System.Math.Min(System.Math.Min(rgb.R, rgb.G), rgb.B);
-			float maxColour = System.Math.Max(System.Math.Max(rgb.R, rgb.G), rgb.B);
+			double minColour = System.Math.Min(System.Math.Min(rgb.R, rgb.G), rgb.B);
+			double maxColour = System.Math.Max(System.Math.Max(rgb.R, rgb.G), rgb.B);
 
 			// If minColour equals maxColour, we know that R = G = B and thus the colour
 			// is a shade of grey. This is a trivial case, hue can be set to anything,
@@ -96,8 +96,8 @@ namespace Nexus.Graphics.Colors
 			if (minColour == maxColour)
 			{
 				// R = G = B to it's a shade of grey
-				h = 0.0f; // it doesn't matter what value it has
-				s = 0.0f;
+				h = 0.0; // it doesn't matter what value it has
+				s = 0.0;
 				l = rgb.R; // doesn't matter if you pick r, b, or b
 			}
 			else
@@ -113,21 +113,21 @@ namespace Nexus.Graphics.Colors
 				// - Hue (h) is calculated with a different formula depending on which of the 3
 				//   colour components is the dominating one, and then normalised to a number
 				//   between 0 and 1.
-				l = (minColour + maxColour) / 2.0f;
+				l = (minColour + maxColour) / 2.0;
 
-				float delta = maxColour - minColour;
-				if (l < 0.5f)
+				double delta = maxColour - minColour;
+				if (l < 0.5)
 					s = delta / (maxColour + minColour);
 				else
-					s = delta / (2.0f - delta);
+					s = delta / (2.0 - delta);
 
 				if (rgb.R == maxColour)
 					h = (rgb.G - rgb.B) / delta;
 				else if (rgb.G == maxColour)
-					h = 2.0f + (rgb.B - rgb.R) / delta;
+					h = 2.0 + (rgb.B - rgb.R) / delta;
 				else
-					h = 4.0f + (rgb.R - rgb.G) / delta;
-				h /= 6.0f; // to bring it to a number between 0 and 1.
+					h = 4.0 + (rgb.R - rgb.G) / delta;
+				h /= 6.0; // to bring it to a number between 0 and 1.
 				if (h < 0)
 					++h;
 			}

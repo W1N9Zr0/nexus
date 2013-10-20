@@ -11,18 +11,18 @@ namespace Nexus
 	[StructLayout(LayoutKind.Sequential)]
 	public struct Point3D
 	{
-		public float X;
-		public float Y;
-		public float Z;
+		public double X;
+		public double Y;
+		public double Z;
 
-		public Point3D(float x, float y, float z)
+		public Point3D(double x, double y, double z)
 		{
 			X = x;
 			Y = y;
 			Z = z;
 		}
 
-		public Point3D(Point2D xy, float z)
+		public Point3D(Point2D xy, double z)
 			: this(xy.X, xy.Y, z)
 		{
 			
@@ -37,7 +37,7 @@ namespace Nexus
 
 		public static int SizeInBytes
 		{
-			get { return sizeof(float) * 3; }
+			get { return sizeof(double) * 3; }
 		}
 
 		public Point2D Xy
@@ -49,7 +49,7 @@ namespace Nexus
 
 		#region Indexer
 
-		public float this[int index]
+		public double this[int index]
 		{
 			get
 			{
@@ -125,9 +125,9 @@ namespace Nexus
 		public static Point3D Transform(Point3D position, Matrix3D matrix)
 		{
 			Point3D vector;
-			float num3 = (((position.X * matrix.M11) + (position.Y * matrix.M21)) + (position.Z * matrix.M31)) + matrix.M41;
-			float num2 = (((position.X * matrix.M12) + (position.Y * matrix.M22)) + (position.Z * matrix.M32)) + matrix.M42;
-			float num = (((position.X * matrix.M13) + (position.Y * matrix.M23)) + (position.Z * matrix.M33)) + matrix.M43;
+			double num3 = (((position.X * matrix.M11) + (position.Y * matrix.M21)) + (position.Z * matrix.M31)) + matrix.M41;
+			double num2 = (((position.X * matrix.M12) + (position.Y * matrix.M22)) + (position.Z * matrix.M32)) + matrix.M42;
+			double num = (((position.X * matrix.M13) + (position.Y * matrix.M23)) + (position.Z * matrix.M33)) + matrix.M43;
 			vector.X = num3;
 			vector.Y = num2;
 			vector.Z = num;
@@ -136,15 +136,15 @@ namespace Nexus
 
 		public Point4D ToHomogeneousPoint3D()
 		{
-			return new Point4D(this, 1.0f);
+			return new Point4D(this, 1.0);
 		}
 
-		public static float Distance(Point3D p1, Point3D p2)
+		public static double Distance(Point3D p1, Point3D p2)
 		{
 			return (p1 - p2).Length();
 		}
 
-		public static float DistanceSquared(Point3D p1, Point3D p2)
+		public static double DistanceSquared(Point3D p1, Point3D p2)
 		{
 			return (p1 - p2).LengthSquared();
 		}
@@ -177,7 +177,7 @@ namespace Nexus
 			return new Point3D(point.X - vector.X, point.Y - vector.Y, point.Z - vector.Z);
 		}
 
-		public static Point3D operator *(Point3D value, float scaleFactor)
+		public static Point3D operator *(Point3D value, double scaleFactor)
 		{
 			Point3D vector;
 			vector.X = value.X * scaleFactor;
@@ -195,7 +195,7 @@ namespace Nexus
 			return vector;
 		}
 
-		public static Point3D operator *(float scaleFactor, Point3D value)
+		public static Point3D operator *(double scaleFactor, Point3D value)
 		{
 			Point3D vector;
 			vector.X = value.X * scaleFactor;
@@ -204,10 +204,10 @@ namespace Nexus
 			return vector;
 		}
 
-		public static Point3D operator /(Point3D value, float divider)
+		public static Point3D operator /(Point3D value, double divider)
 		{
 			Point3D vector;
-			float num = 1f / divider;
+			double num = 1 / divider;
 			vector.X = value.X * num;
 			vector.Y = value.Y * num;
 			vector.Z = value.Z * num;

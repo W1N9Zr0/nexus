@@ -2,7 +2,7 @@ namespace Nexus
 {
 	public struct Vector2D
 	{
-		public float X, Y;
+		public double X, Y;
 
 		public static Vector2D Zero
 		{
@@ -11,10 +11,10 @@ namespace Nexus
 
 		public static short SizeInBytes
 		{
-			get { return sizeof(float) * 2; }
+			get { return sizeof(double) * 2; }
 		}
 
-		public Vector2D(float x, float y)
+		public Vector2D(double x, double y)
 		{
 			X = x;
 			Y = y;

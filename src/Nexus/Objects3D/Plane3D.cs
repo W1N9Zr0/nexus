@@ -14,7 +14,7 @@ namespace Nexus.Objects3D
 		/// The distance of the plane along its normal from the origin.
 		/// D = dot(n,p) for a given point p on the plane
 		/// </summary>
-		public float D;
+		public double D;
 
 		#region Constructors
 
@@ -23,7 +23,7 @@ namespace Nexus.Objects3D
 		/// </summary>
 		/// <param name="normal">The normal vector of the plane.</param>
 		/// <param name="d">The distance of the plane along its normal from the origin.</param>
-		public Plane3D(Normal3D normal, float d)
+		public Plane3D(Normal3D normal, double d)
 		{
 			Normal = normal;
 			D = d;
@@ -48,14 +48,14 @@ namespace Nexus.Objects3D
 		public static Plane3D Normalize(Plane3D value)
 		{
 			Plane3D plane;
-			float num2 = ((value.Normal.X * value.Normal.X) + (value.Normal.Y * value.Normal.Y)) + (value.Normal.Z * value.Normal.Z);
-			if (System.Math.Abs((float)(num2 - 1f)) < 1.192093E-07f)
+			double num2 = ((value.Normal.X * value.Normal.X) + (value.Normal.Y * value.Normal.Y)) + (value.Normal.Z * value.Normal.Z);
+			if (System.Math.Abs((double)(num2 - 1)) < 1.192093E-07)
 			{
 				plane.Normal = value.Normal;
 				plane.D = value.D;
 				return plane;
 			}
-			float num = 1f / ((float)System.Math.Sqrt((double)num2));
+			double num = 1 / ((double)System.Math.Sqrt((double)num2));
 			plane.Normal.X = value.Normal.X * num;
 			plane.Normal.Y = value.Normal.Y * num;
 			plane.Normal.Z = value.Normal.Z * num;
@@ -66,10 +66,10 @@ namespace Nexus.Objects3D
 		public static Plane3D Transform(Plane3D plane, Matrix3D matrix)
 		{
 			Matrix3D matrix2 = Matrix3D.Invert(matrix);
-			float x = plane.Normal.X;
-			float y = plane.Normal.Y;
-			float z = plane.Normal.Z;
-			float d = plane.D;
+			double x = plane.Normal.X;
+			double y = plane.Normal.Y;
+			double z = plane.Normal.Z;
+			double d = plane.D;
 
 			Plane3D plane2;
 			plane2.Normal.X = (((x * matrix2.M11) + (y * matrix2.M12)) + (z * matrix2.M13)) + (d * matrix2.M14);

@@ -5,14 +5,14 @@ namespace Nexus
 	[StructLayout(LayoutKind.Sequential)]
 	public struct Point2D
 	{
-		public float X, Y;
+		public double X, Y;
 
 		public static Point2D Zero
 		{
 			get { return new Point2D(0, 0); }
 		}
 
-		public Point2D(float x, float y)
+		public Point2D(double x, double y)
 		{
 			X = x;
 			Y = y;
@@ -20,7 +20,7 @@ namespace Nexus
 
 		public static int SizeInBytes
 		{
-			get { return sizeof(float) * 2; }
+			get { return sizeof(double) * 2; }
 		}
 
 		public override string ToString()
@@ -30,7 +30,7 @@ namespace Nexus
 
 		#region Operators
 
-		public static Point2D operator *(Point2D value, float scaleFactor)
+		public static Point2D operator *(Point2D value, double scaleFactor)
 		{
 			Point2D vector;
 			vector.X = value.X * scaleFactor;
@@ -38,7 +38,7 @@ namespace Nexus
 			return vector;
 		}
 
-		public static Point2D operator *(float scaleFactor, Point2D value)
+		public static Point2D operator *(double scaleFactor, Point2D value)
 		{
 			Point2D vector;
 			vector.X = value.X * scaleFactor;

@@ -39,7 +39,7 @@ namespace Nexus.Design
 				Vector3D vector = (Vector3D) value;
 				if (destinationType == typeof(InstanceDescriptor))
 				{
-					ConstructorInfo ci = typeof(Vector3D).GetConstructor(new Type[] { typeof(float), typeof(float), typeof(float) });
+					ConstructorInfo ci = typeof(Vector3D).GetConstructor(new Type[] { typeof(double), typeof(double), typeof(double) });
 					return new InstanceDescriptor(ci, new object[] { vector.X, vector.Y, vector.Z });
 				}
 				else if (destinationType == typeof(string))

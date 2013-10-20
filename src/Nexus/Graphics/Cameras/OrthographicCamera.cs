@@ -13,7 +13,7 @@ namespace Nexus.Graphics.Cameras
 	{
 		public OrthographicCamera()
 		{
-			Width = 2.0f;
+			Width = 2.0;
 		}
 
 		/// <summary>
@@ -23,9 +23,9 @@ namespace Nexus.Graphics.Cameras
 		/// Because the OrthographicCamera describes a projection that does not include perspective foreshortening, its viewing box 
 		/// has parallel sides. The width of the viewing box can therefore be specified with a single value.
 		/// </remarks>
-		public float Width { get; set; }
+		public double Width { get; set; }
 
-		public override Matrix3D GetProjectionMatrix(float aspectRatio)
+		public override Matrix3D GetProjectionMatrix(double aspectRatio)
 		{
 			return Matrix3D.CreateOrthographic(Width, Width / aspectRatio,
 				NearPlaneDistance, FarPlaneDistance);

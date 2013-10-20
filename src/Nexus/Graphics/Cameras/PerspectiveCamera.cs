@@ -21,16 +21,16 @@ namespace Nexus.Graphics.Cameras
 		/// <summary>
 		/// Gets or sets a value that represents the camera's horizontal field of view in radians. 
 		/// </summary>
-		public float FieldOfView { get; set; }
+		public double FieldOfView { get; set; }
 
-		public override Matrix3D GetProjectionMatrix(float aspectRatio)
+		public override Matrix3D GetProjectionMatrix(double aspectRatio)
 		{
 			return Matrix3D.CreatePerspectiveFieldOfView(FieldOfView,
 				aspectRatio, NearPlaneDistance, FarPlaneDistance);
 		}
 
 		public static PerspectiveCamera CreateFromBounds(AxisAlignedBox3D bounds, Viewport3D viewport,
-			float fieldOfView, float yaw = 0.0f, float pitch = 0.0f, float zoom = 1.0f)
+			double fieldOfView, double yaw = 0.0, double pitch = 0.0, double zoom = 1.0)
 		{
 			// Calculate initial guess at camera settings.
 			Matrix3D transform = Matrix3D.CreateFromYawPitchRoll(yaw, pitch, 0);
@@ -38,7 +38,7 @@ namespace Nexus.Graphics.Cameras
 			PerspectiveCamera initialGuess = new PerspectiveCamera
 			{
 				FieldOfView = fieldOfView,
-				NearPlaneDistance = 1.0f,
+				NearPlaneDistance = 1.0,
 				FarPlaneDistance = bounds.Size.Length() * 10,
 				Position = bounds.Center - cameraDirection * bounds.Size.Length() * 2,
 				LookDirection = cameraDirection,
@@ -49,7 +49,7 @@ namespace Nexus.Graphics.Cameras
 			Matrix3D view = initialGuess.GetViewMatrix();
 
 			// Project bounding box corners onto screen, and calculate screen bounds.
-			float closestZ = float.MaxValue;
+			double closestZ = double.MaxValue;
 			Box2D? screenBounds = null;
 			Point3D[] corners = bounds.GetCorners();
 			foreach (Point3D corner in corners)
@@ -81,8 +81,8 @@ namespace Nexus.Graphics.Cameras
 
 			// Use these new values to calculate the distance the camera should be from the AABB centre.
 			Vector3D size = Vector3D.Abs(max - min);
-			float radius = size.Length();
-			float dist = radius / (2 * MathUtility.Tan(fieldOfView * viewport.AspectRatio / 2));
+			double radius = size.Length();
+			double dist = radius / (2 * MathUtility.Tan(fieldOfView * viewport.AspectRatio / 2));
 
 			Point3D closestBoundsCenter = (min + (max - min) / 2);
 			Point3D position = closestBoundsCenter - cameraDirection * dist * (1 / zoom);
@@ -90,7 +90,7 @@ namespace Nexus.Graphics.Cameras
 			return new PerspectiveCamera
 			{
 				FieldOfView = fieldOfView,
-				NearPlaneDistance = 1.0f,
+				NearPlaneDistance = 1.0,
 				FarPlaneDistance = dist * 10,
 				Position = position,
 				LookDirection = cameraDirection,

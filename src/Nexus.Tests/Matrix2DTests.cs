@@ -74,15 +74,15 @@ namespace Nexus.Tests
 
 			Matrix2D expected = new Matrix2D
 			{
-				M11 = 0.5f,
+				M11 = 0.5,
 				M12 = -1,
-				M13 = 0.5f,
+				M13 = 0.5,
 				M21 = -1,
 				M22 = -1,
 				M23 = 1,
-				M31 = 0.5f,
-				M32 = 1.6666666667f,
-				M33 = -1.1666666667f
+				M31 = 0.5,
+				M32 = 1.6666666667,
+				M33 = -1.1666666667
 			};
 
 			AssertMatricesAreEqual(expected, actual);

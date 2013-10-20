@@ -2,23 +2,23 @@ namespace Nexus
 {
 	public struct Matrix2D
 	{
-		public float M11;
-		public float M12;
-		public float M13;
-		public float M21;
-		public float M22;
-		public float M23;
-		public float M31;
-		public float M32;
-		public float M33;
+		public double M11;
+		public double M12;
+		public double M13;
+		public double M21;
+		public double M22;
+		public double M23;
+		public double M31;
+		public double M32;
+		public double M33;
 
-		public float Determinant
+		public double Determinant
 		{
 			get
 			{
-				float temp1 = M11 * (M22 * M33 - M32 * M23);
-				float temp2 = M12 * (M21 * M33 - M31 * M23);
-				float temp3 = M13 * (M21 * M32 - M31 * M22);
+				double temp1 = M11 * (M22 * M33 - M32 * M23);
+				double temp2 = M12 * (M21 * M33 - M31 * M23);
+				double temp3 = M13 * (M21 * M32 - M31 * M22);
 				return temp1 - temp2 + temp3;
 			}
 		}
@@ -28,7 +28,7 @@ namespace Nexus
 			get { return !MathUtility.IsZero(Determinant); }
 		}
 
-		public Matrix2D(float m11, float m12, float m13, float m21, float m22, float m23, float m31, float m32, float m33)
+		public Matrix2D(double m11, double m12, double m13, double m21, double m22, double m23, double m31, double m32, double m33)
 		{
 			this.M11 = m11;
 			this.M12 = m12;
@@ -48,7 +48,7 @@ namespace Nexus
 					MultiplyPoint(ref points[i].X, ref points[i].Y);
 		}
 
-		private void MultiplyPoint(ref float x, ref float y)
+		private void MultiplyPoint(ref double x, ref double y)
 		{
 			x *= M11;
 			x += (y * M21) + M31;
@@ -72,10 +72,10 @@ namespace Nexus
 		/// </summary>
 		/// <param name="radians">The amount, in radians, in which to rotate.</param>
 		/// <returns>The created rotation matrix.</returns>
-		public static Matrix2D CreateRotation(float radians)
+		public static Matrix2D CreateRotation(double radians)
 		{
-			float s = MathUtility.Sin(radians);
-			float c = MathUtility.Cos(radians);
+			double s = MathUtility.Sin(radians);
+			double c = MathUtility.Cos(radians);
 
 			return new Matrix2D(
 				c, s, 0,
@@ -129,7 +129,7 @@ namespace Nexus
 
 		#region Operators
 
-		public static Matrix2D operator/(Matrix2D matrix, float value)
+		public static Matrix2D operator/(Matrix2D matrix, double value)
 		{
 			matrix.M11 /= value;
 			matrix.M12 /= value;

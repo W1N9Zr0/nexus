@@ -12,8 +12,8 @@ namespace Nexus.Objects3D
 			{
 				return new AxisAlignedBox3D
 				{
-					Min = new Point3D(float.NaN, float.NaN, float.NaN),
-					Max = new Point3D(float.NaN, float.NaN, float.NaN)
+					Min = new Point3D(double.NaN, double.NaN, double.NaN),
+					Max = new Point3D(double.NaN, double.NaN, double.NaN)
 				};
 			}
 		}
@@ -76,13 +76,13 @@ namespace Nexus.Objects3D
 
 		#region Methods
 
-		public void Expand(float delta)
+		public void Expand(double delta)
 		{
 			Min -= new Vector3D(delta, delta, delta);
 			Max += new Vector3D(delta, delta, delta);
 		}
 
-		public float Volume()
+		public double Volume()
 		{
 			Vector3D d = Max - Min;
 			return d.X * d.Y * d.Z;
@@ -111,8 +111,8 @@ namespace Nexus.Objects3D
 				// Form extent by summing smaller and larger terms respectively.
 				for (int j = 0; j < 3; ++j)
 				{
-					float e = transform[i, j] * Min[j];
-					float f = transform[i, j] * Max[j];
+					double e = transform[i, j] * Min[j];
+					double f = transform[i, j] * Max[j];
 					if (e < f)
 					{
 						result.Min[i] += e;
@@ -160,23 +160,23 @@ namespace Nexus.Objects3D
 			return ret;
 		}
 
-		private static float CheckedMin(float v1, float v2)
+		private static double CheckedMin(double v1, double v2)
 		{
-			if (float.IsNaN(v1))
+			if (double.IsNaN(v1))
 				return v2;
 
-			if (float.IsNaN(v2))
+			if (double.IsNaN(v2))
 				return v1;
 
 			return Math.Min(v1, v2);
 		}
 
-		private static float CheckedMax(float v1, float v2)
+		private static double CheckedMax(double v1, double v2)
 		{
-			if (float.IsNaN(v1))
+			if (double.IsNaN(v1))
 				return v2;
 
-			if (float.IsNaN(v2))
+			if (double.IsNaN(v2))
 				return v1;
 
 			return Math.Max(v1, v2);
@@ -209,7 +209,7 @@ namespace Nexus.Objects3D
 
 		#endregion
 
-		public float? Intersects(Ray3D ray)
+		public double? Intersects(Ray3D ray)
 		{
 			return ray.Intersects(this);
 		}

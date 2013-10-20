@@ -2,19 +2,19 @@ namespace Nexus.Graphics.Transforms
 {
 	public class ScaleTransform3D : AffineTransform
 	{
-		public float ScaleX
+		public double ScaleX
 		{
 			get;
 			set;
 		}
 
-		public float ScaleY
+		public double ScaleY
 		{
 			get;
 			set;
 		}
 
-		public float ScaleZ
+		public double ScaleZ
 		{
 			get;
 			set;

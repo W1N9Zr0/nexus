@@ -71,7 +71,7 @@ namespace Nexus.Graphics.Colors
 				(byte)Convert.ToInt32(hexRef.Substring(5, 2), 16));
 		}
 
-		public static Color Lerp(float t, Color rgb1, Color rgb2)
+		public static Color Lerp(double t, Color rgb1, Color rgb2)
 		{
 			return new Color(
 				MathUtility.Lerp(rgb1.A, rgb2.A, t),
@@ -82,17 +82,17 @@ namespace Nexus.Graphics.Colors
 
 		public Vector3D ToVector3D()
 		{
-			return new Vector3D(R / 255.0f, G / 255.0f, B / 255.0f);
+			return new Vector3D(R / 255.0, G / 255.0, B / 255.0);
 		}
 
 		#region Operators
 
 		public static explicit operator ColorF(Color color)
 		{
-			return new ColorF(color.A / 255.0f, color.R / 255.0f, color.G / 255.0f, color.B / 255.0f);
+			return new ColorF(color.A / 255.0, color.R / 255.0, color.G / 255.0, color.B / 255.0);
 		}
 
-		public static Color operator *(Color value, float multiplier)
+		public static Color operator *(Color value, double multiplier)
 		{
 			return new Color(
 				(byte) (value.A * multiplier),
@@ -106,9 +106,9 @@ namespace Nexus.Graphics.Colors
 		public static Color FromNonPremultiplied(byte r, byte g, byte b, byte a)
 		{
 			return new Color(a,
-				(byte) (r * a / (float) byte.MaxValue),
-				(byte) (g * a / (float) byte.MaxValue),
-				(byte) (b * a / (float) byte.MaxValue));
+				(byte) (r * a / (double) byte.MaxValue),
+				(byte) (g * a / (double) byte.MaxValue),
+				(byte) (b * a / (double) byte.MaxValue));
 		}
 	}
 }

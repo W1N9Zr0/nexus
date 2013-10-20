@@ -13,11 +13,11 @@ namespace Nexus.Graphics
 
 		public int Height { get; set; }
 
-		public float MinDepth { get; set; }
+		public double MinDepth { get; set; }
 
-		public float MaxDepth { get; set; }
+		public double MaxDepth { get; set; }
 
-		public Viewport3D(int x, int y, int width, int height, float minDepth, float maxDepth)
+		public Viewport3D(int x, int y, int width, int height, double minDepth, double maxDepth)
 			: this()
 		{
 			X = x;
@@ -44,10 +44,10 @@ namespace Nexus.Graphics
 			return string.Format(CultureInfo.CurrentCulture, "{{X:{0} Y:{1} Width:{2} Height:{3} MinDepth:{4} MaxDepth:{5}}}", new object[] { X, Y, Width, Height, MinDepth, MaxDepth });
 		}
 
-		private static bool WithinEpsilon(float a, float b)
+		private static bool WithinEpsilon(double a, double b)
 		{
-			float num = a - b;
-			return ((-1.401298E-45f <= num) && (num <= float.Epsilon));
+			double num = a - b;
+			return ((-1.401298E-45 <= num) && (num <= double.Epsilon));
 		}
 
 		/// <summary>
@@ -62,11 +62,11 @@ namespace Nexus.Graphics
 		{
 			Matrix3D matrix = world * view * projection;
 			Point3D vector = Point3D.Transform(source, matrix);
-			float a = (((source.X * matrix.M14) + (source.Y * matrix.M24)) + (source.Z * matrix.M34)) + matrix.M44;
-			if (!WithinEpsilon(a, 1f))
+			double a = (((source.X * matrix.M14) + (source.Y * matrix.M24)) + (source.Z * matrix.M34)) + matrix.M44;
+			if (!WithinEpsilon(a, 1))
 				vector = vector / a;
-			vector.X = (((vector.X + 1f) * 0.5f) * Width) + X;
-			vector.Y = (((-vector.Y + 1f) * 0.5f) * Height) + Y;
+			vector.X = (((vector.X + 1) * 0.5) * Width) + X;
+			vector.Y = (((-vector.Y + 1) * 0.5) * Height) + Y;
 			vector.Z = (vector.Z * (MaxDepth - MinDepth)) + MinDepth;
 			return vector;
 		}
@@ -83,23 +83,23 @@ namespace Nexus.Graphics
 		{
 			var position = new Point3D();
 			Matrix3D matrix = Matrix3D.Invert(world * view * projection);
-			position.X = (((source.X - X) / Width) * 2f) - 1f;
-			position.Y = -((((source.Y - Y) / Height) * 2f) - 1f);
+			position.X = (((source.X - X) / Width) * 2) - 1;
+			position.Y = -((((source.Y - Y) / Height) * 2) - 1);
 			position.Z = (source.Z - MinDepth) / (MaxDepth - MinDepth);
 			position = Point3D.Transform(position, matrix);
-			float a = (((source.X * matrix.M14) + (source.Y * matrix.M24)) + (source.Z * matrix.M34)) + matrix.M44;
-			if (!WithinEpsilon(a, 1f))
+			double a = (((source.X * matrix.M14) + (source.Y * matrix.M24)) + (source.Z * matrix.M34)) + matrix.M44;
+			if (!WithinEpsilon(a, 1))
 				position = position / a;
 			return position;
 		}
 
-		public float AspectRatio
+		public double AspectRatio
 		{
 			get
 			{
 				if (Height != 0 && Width != 0)
-					return Width / (float)Height;
-				return 0f;
+					return Width / (double)Height;
+				return 0;
 			}
 		}
 

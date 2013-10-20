@@ -13,7 +13,7 @@ namespace Nexus.Graphics
 	{
 		#region Fields
 
-		private const float PreMultiplyFactor = 1 / 255f;
+		private const double PreMultiplyFactor = 1 / 255;
 		private const int SizeOfARGB = 4;
 
 		private readonly WriteableBitmap _inner;
@@ -73,7 +73,7 @@ namespace Nexus.Graphics
 		/// <param name="color">The color used for filling.</param>
 		public void Clear(Color color)
 		{
-			float ai = color.A * PreMultiplyFactor;
+			double ai = color.A * PreMultiplyFactor;
 			int col = (color.A << 24) | ((byte)(color.R * ai) << 16) | ((byte)(color.G * ai) << 8) | (byte)(color.B * ai);
 			int[] pixels = GetPixels();
 			int w = _inner.PixelWidth;
@@ -117,8 +117,8 @@ namespace Nexus.Graphics
 		{
 			int c = GetPixels()[y * _width + x];
 			byte a = (byte)(c >> 24);
-			//float ai = a / PreMultiplyFactor;
-			float ai = 1;
+			//double ai = a / PreMultiplyFactor;
+			double ai = 1;
 			return Color.FromArgb(a, (byte)((c >> 16) * ai), (byte)((c >> 8) * ai), (byte)(c * ai));
 		}
 
@@ -134,7 +134,7 @@ namespace Nexus.Graphics
 		/// <param name="color">The color.</param>
 		public void SetPixel(int x, int y, Color color)
 		{
-			float ai = color.A * PreMultiplyFactor;
+			double ai = color.A * PreMultiplyFactor;
 			GetPixels()[y * _width + x] = (color.A << 24) | ((byte)(color.R * ai) << 16) | ((byte)(color.G * ai) << 8) | (byte)(color.B * ai);
 		}
 

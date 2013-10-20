@@ -8,7 +8,7 @@ namespace Nexus.Tests
 		[Test]
 		public void CanConstructPoint3D()
 		{
-			const float value = 3.0f;
+			const double value = 3.0;
 			Point3D point = new Point3D(value, value, value);
 			Assert.AreEqual(value, point.X);
 			Assert.AreEqual(value, point.Y);

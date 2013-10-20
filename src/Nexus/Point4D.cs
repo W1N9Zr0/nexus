@@ -10,10 +10,10 @@ namespace Nexus
 	{
 		#region Fields
 
-		public float X;
-		public float Y;
-		public float Z;
-		public float W;
+		public double X;
+		public double Y;
+		public double Z;
+		public double W;
 
 		#endregion
 
@@ -21,20 +21,20 @@ namespace Nexus
 
 		public static short SizeInBytes
 		{
-			get { return sizeof(float) * 4; }
+			get { return sizeof(double) * 4; }
 		}
 
 		#endregion
 
 		#region Constructors
 
-		public Point4D(Point3D point, float w)
+		public Point4D(Point3D point, double w)
 			: this(point.X, point.Y, point.Z, w)
 		{
 			
 		}
 
-		public Point4D(float x, float y, float z, float w)
+		public Point4D(double x, double y, double z, double w)
 		{
 			X = x;
 			Y = y;
@@ -80,7 +80,7 @@ namespace Nexus
 			return pointd;
 		}
 
-		public static Point4D LinearInterpolate(Point4D value1, Point4D value2, float amountRangeStart, float amountRangeEnd, float amount)
+		public static Point4D LinearInterpolate(Point4D value1, Point4D value2, double amountRangeStart, double amountRangeEnd, double amount)
 		{
 			Point4D result = new Point4D();
 			result.X = MathUtility.Lerp(value1.X, value2.X, amountRangeStart, amountRangeEnd, amount);
@@ -90,7 +90,7 @@ namespace Nexus
 			return result;
 		}
 
-		public static Point4D PerspectiveInterpolate(Point4D value1, Point4D value2, float w1, float w2, float amountRangeStart, float amountRangeEnd, float amount)
+		public static Point4D PerspectiveInterpolate(Point4D value1, Point4D value2, double w1, double w2, double amountRangeStart, double amountRangeEnd, double amount)
 		{
 			Point4D result = new Point4D();
 			result.X = MathUtility.PerspectiveInterpolate(value1.X, value2.X, w1, w2, amountRangeStart, amountRangeEnd, amount);
@@ -150,7 +150,7 @@ namespace Nexus
 			return matrix.Transform(point);
 		}
 
-		public static Point4D operator *(Point4D value, float scaleFactor)
+		public static Point4D operator *(Point4D value, double scaleFactor)
 		{
 			Point4D result;
 			result.X = value.X * scaleFactor;

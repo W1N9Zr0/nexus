@@ -10,23 +10,23 @@
 		{
 		}
 
-		public override float[] Solve(float[] initial, float x, float h)
+		public override double[] Solve(double[] initial, double x, double h)
 		{
-			float[] k1 = Callback(initial, x);
-			float[] temp = DoEulerStep(initial, k1, h / 2.0f);
+			double[] k1 = Callback(initial, x);
+			double[] temp = DoEulerStep(initial, k1, h / 2.0);
 
-			float[] k2 = Callback(temp, x + (h / 2.0f));
-			temp = DoEulerStep(initial, k2, h / 2.0f);
+			double[] k2 = Callback(temp, x + (h / 2.0));
+			temp = DoEulerStep(initial, k2, h / 2.0);
 
-			float[] k3 = Callback(temp, x + (h / 2.0f));
+			double[] k3 = Callback(temp, x + (h / 2.0));
 			temp = DoEulerStep(initial, k3, h);
 
-			float[] k4 = Callback(temp, x + h);
+			double[] k4 = Callback(temp, x + h);
 
-			float[] ret = DoEulerStep(initial, k1, h / 6.0f);
-			ret = DoEulerStep(ret, k2, h / 3.0f);
-			ret = DoEulerStep(ret, k3, h / 3.0f);
-			ret = DoEulerStep(ret, k4, h / 6.0f);
+			double[] ret = DoEulerStep(initial, k1, h / 6.0);
+			ret = DoEulerStep(ret, k2, h / 3.0);
+			ret = DoEulerStep(ret, k3, h / 3.0);
+			ret = DoEulerStep(ret, k4, h / 6.0);
 			return ret;
 		}
 	}

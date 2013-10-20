@@ -40,7 +40,7 @@ namespace Nexus.Design
 				Point3D point = (Point3D) value;
 				if (destinationType == typeof(InstanceDescriptor))
 				{
-					ConstructorInfo ci = typeof(Point3D).GetConstructor(new Type[] { typeof(float), typeof(float), typeof(float) });
+					ConstructorInfo ci = typeof(Point3D).GetConstructor(new Type[] { typeof(double), typeof(double), typeof(double) });
 					return new InstanceDescriptor(ci, new object[] { point.X, point.Y, point.Z });
 				}
 				else if (destinationType == typeof(string))
